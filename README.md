@@ -1,6 +1,33 @@
-# 🎮 TypeScript Bot Demo
+# 🎮 Discord Bot Demo
 
 A feature-rich Discord bot built with TypeScript and Discord.js, featuring advanced leveling systems, RPG mechanics, music playback, moderation tools, and much more!
+
+## 🚀 Quick Start
+
+### Windows Users
+[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](setup.bat)
+
+**Double-click** `setup.bat` to automatically install and configure your bot!
+
+### Linux/Mac Users
+[![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](setup.sh)
+[![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=macos&logoColor=white)](setup.sh)
+
+**Run** `./setup.sh` in your terminal to automatically install and configure your bot!
+
+### 🎮 Bot Manager (Optional)
+After setup, you can use the web-based bot manager for easy configuration:
+
+**Windows:** Double-click `start-bot-manager.bat`  
+**Linux/Mac:** Run `./start-bot-manager.sh`
+
+This opens a beautiful web interface at `http://localhost:3000` where you can:
+- Configure your bot token
+- Start/stop your bot
+- Monitor bot status
+- Manage settings through a user-friendly GUI
+
+---
 
 ## ✨ Features
 
@@ -59,27 +86,30 @@ A feature-rich Discord bot built with TypeScript and Discord.js, featuring advan
 - **Bot Statistics**: Performance and usage metrics
 - **Avatar Display**: High-quality avatar viewing
 
-## 🚀 Quick Start
+## 🚀 Installation
 
 ### Prerequisites
 - Node.js 18.0.0 or higher
 - npm or yarn package manager
 - Discord Bot Token
-- (Optional) Spotify API credentials for enhanced music features
 
-### Installation
+### Automatic Setup (Recommended)
 
-#### Option 1: Local Dashboard - Requirements Installer (Recommended)
+#### Windows
 1. **Download and extract** the bot files
-2. **Double-click** `dashboardinstaller.bat` (Windows) or run `./start-bot-manager.sh` (Linux/Mac)
-3. **Enter your bot token** in the web interface
-4. **Manage your bot** through the beautiful GUI
+2. **Double-click** `setup.bat`
+3. **Follow the prompts** to configure your bot
+4. **Start your bot** with `npm start`
 
-**If you encounter issues with the automatic launcher:**
-- Try `manual-setup.bat` for Windows users with npm PATH issues
-- See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for common solutions
+#### Linux/Mac
+1. **Download and extract** the bot files
+2. **Open terminal** in the bot directory
+3. **Run** `chmod +x setup.sh && ./setup.sh`
+4. **Follow the prompts** to configure your bot
+5. **Start your bot** with `npm start`
 
-#### Option 2: Command Line
+### Manual Setup
+
 1. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/advanced-discord-bot.git
@@ -112,14 +142,6 @@ For development with auto-restart:
 ```bash
 npm run dev
 ```
-
-### Bot Manager Features
-- **🌐 Web-based GUI** - Beautiful interface for bot management
-- **🔐 Secure token storage** - Tokens saved locally in .env file
-- **📊 Real-time stats** - View uptime, ping, and server count
-- **🎨 Bot customization** - Change username and avatar
-- **🔄 Auto-restart** - Bot automatically reconnects on startup
-- **📱 Cross-platform** - Works on Windows, Mac, and Linux
 
 ## ⚙️ Configuration
 
@@ -272,9 +294,9 @@ DEBUG=true
 
 ## 🤝 Contributing
 
-We welcome contributions! Please feel free to submit issues, feature requests, or pull requests.
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for detailed guidelines.
 
-### Development Setup
+### Quick Contributing Steps
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature-name`
 3. Make your changes
@@ -286,7 +308,7 @@ We welcome contributions! Please feel free to submit issues, feature requests, o
 ### Development & Support
 For suggestions, concerns, donations, or development inquiries, contact:
 - **Discord**: @quefep
-- **GitHub Issues**: [Create an issue]([https://github.com/yourusername/advanced-discord-bot/issues](https://github.com/M1tsumi/DiscordDemo/issues/new/choose))
+- **GitHub Issues**: [Create an issue](https://github.com/M1tsumi/DiscordDemo/issues/new/choose)
 
 ### Features Under Development
 Some features are still in active development. For the latest updates and feature requests, please contact @quefep on Discord.
