@@ -284,10 +284,7 @@ const htmlTemplate = `
                 return;
             }
             
-            showStatus('Starting bot...', 'info');
-            
-            // Create .env file with the token
-            const envContent = \`DISCORD_TOKEN=\${token}\\nBOT_PREFIX=\${prefix}\\n\`;
+            showStatus('Installing dependencies and building project... This may take a few minutes.', 'info');
             
             fetch('/start-bot', {
                 method: 'POST',
@@ -302,7 +299,7 @@ const htmlTemplate = `
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showStatus('Bot started successfully! Check your Discord server.', 'success');
+                    showStatus('Bot started successfully! Check your Discord server. You should see your bot online now.', 'success');
                 } else {
                     showStatus('Failed to start bot: ' + data.error, 'error');
                 }
@@ -358,7 +355,7 @@ const server = http.createServer((req, res) => {
         req.on('data', chunk => {
             body += chunk.toString();
         });
-        req.on('end', () => {
+        req.on('end', async () => {
             try {
                 const data = JSON.parse(body);
                 
@@ -366,14 +363,72 @@ const server = http.createServer((req, res) => {
                 const envContent = `DISCORD_TOKEN=${data.token}\nBOT_PREFIX=${data.prefix || '!'}\n`;
                 fs.writeFileSync('.env', envContent);
                 
-                // Start the bot process
+                // Stop any existing bot process
                 if (botProcess) {
                     botProcess.kill();
+                    botProcess = null;
                 }
                 
-                botProcess = spawn('npm', ['start'], {
+                // First, install dependencies if node_modules doesn't exist
+                if (!fs.existsSync('node_modules')) {
+                    console.log('Installing dependencies...');
+                    const installProcess = spawn('npm', ['install'], {
+                        stdio: 'pipe',
+                        shell: true
+                    });
+                    
+                    installProcess.stdout.on('data', (data) => {
+                        console.log('Install output:', data.toString());
+                    });
+                    
+                    installProcess.stderr.on('data', (data) => {
+                        console.error('Install error:', data.toString());
+                    });
+                    
+                    await new Promise((resolve, reject) => {
+                        installProcess.on('close', (code) => {
+                            if (code === 0) {
+                                console.log('Dependencies installed successfully');
+                                resolve();
+                            } else {
+                                reject(new Error(`npm install failed with code ${code}`));
+                            }
+                        });
+                    });
+                }
+                
+                // Build the project
+                console.log('Building project...');
+                const buildProcess = spawn('npm', ['run', 'build'], {
                     stdio: 'pipe',
                     shell: true
+                });
+                
+                buildProcess.stdout.on('data', (data) => {
+                    console.log('Build output:', data.toString());
+                });
+                
+                buildProcess.stderr.on('data', (data) => {
+                    console.error('Build error:', data.toString());
+                });
+                
+                await new Promise((resolve, reject) => {
+                    buildProcess.on('close', (code) => {
+                        if (code === 0) {
+                            console.log('Project built successfully');
+                            resolve();
+                        } else {
+                            reject(new Error(`npm run build failed with code ${code}`));
+                        }
+                    });
+                });
+                
+                // Start the bot process
+                console.log('Starting bot...');
+                botProcess = spawn('npm', ['start'], {
+                    stdio: 'pipe',
+                    shell: true,
+                    env: { ...process.env, DISCORD_TOKEN: data.token, BOT_PREFIX: data.prefix || '!' }
                 });
                 
                 botProcess.stdout.on('data', (data) => {
@@ -389,9 +444,19 @@ const server = http.createServer((req, res) => {
                     botProcess = null;
                 });
                 
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ success: true }));
+                // Wait a moment to see if the bot starts successfully
+                setTimeout(() => {
+                    if (botProcess && !botProcess.killed) {
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: true, message: 'Bot started successfully!' }));
+                    } else {
+                        res.writeHead(500, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: false, error: 'Bot failed to start' }));
+                    }
+                }, 2000);
+                
             } catch (error) {
+                console.error('Error starting bot:', error);
                 res.writeHead(500, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, error: error.message }));
             }
