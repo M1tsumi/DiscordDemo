@@ -5,7 +5,7 @@ export async function initializePlayDL(): Promise<boolean> {
         console.log('🔧 Initializing play-dl...');
         
         // Set up play-dl with YouTube cookies (optional but recommended)
-        const youtubeCookie = process.env.YOUTUBE_COOKIE;
+        const youtubeCookie = process.env['YOUTUBE_COOKIE'];
         if (youtubeCookie) {
             await play.setToken({
                 youtube: {

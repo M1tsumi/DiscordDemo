@@ -412,20 +412,26 @@ const server = http.createServer((req, res) => {
                     console.error('Build error:', data.toString());
                 });
                 
-                await new Promise((resolve, reject) => {
-                    buildProcess.on('close', (code) => {
-                        if (code === 0) {
-                            console.log('Project built successfully');
-                            resolve();
-                        } else {
-                            reject(new Error(`npm run build failed with code ${code}`));
-                        }
+                // Try to build, but don't fail if it doesn't work
+                try {
+                    await new Promise((resolve, reject) => {
+                        buildProcess.on('close', (code) => {
+                            if (code === 0) {
+                                console.log('Project built successfully');
+                                resolve();
+                            } else {
+                                console.log('Build failed, but continuing with ts-node...');
+                                resolve(); // Don't reject, just continue
+                            }
+                        });
                     });
-                });
+                } catch (error) {
+                    console.log('Build error, but continuing with ts-node...');
+                }
                 
-                // Start the bot process
-                console.log('Starting bot...');
-                botProcess = spawn('npm', ['start'], {
+                // Start the bot process with ts-node for development
+                console.log('Starting bot with ts-node...');
+                botProcess = spawn('npx', ['ts-node', 'src/index.ts'], {
                     stdio: 'pipe',
                     shell: true,
                     env: { ...process.env, DISCORD_TOKEN: data.token, BOT_PREFIX: data.prefix || '!' }
