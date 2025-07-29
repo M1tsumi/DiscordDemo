@@ -1,0 +1,158 @@
+# ===========================================
+# Node.js Dependencies
+# ===========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.yarn-integrity
+
+# ===========================================
+# Environment Variables
+# ===========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.test
+
+# ===========================================
+# Build Outputs
+# ===========================================
+dist/
+build/
+*.tsbuildinfo
+
+# ===========================================
+# Runtime & Cache Files
+# ===========================================
+pids
+*.pid
+*.seed
+*.pid.lock
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+
+# ===========================================
+# Coverage & Testing
+# ===========================================
+coverage/
+*.lcov
+.nyc_output
+test-results/
+
+# ===========================================
+# Cache Directories
+# ===========================================
+.cache
+.parcel-cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.fusebox/
+
+# ===========================================
+# Framework Specific
+# ===========================================
+.next
+.nuxt
+.serverless/
+.dynamodb/
+
+# ===========================================
+# OS Generated Files
+# ===========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ===========================================
+# IDE & Editor Files
+# ===========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.tern-port
+.vscode-test
+
+# ===========================================
+# Discord Bot Specific
+# ===========================================
+data/*.json
+!data/*.example.json
+
+# ===========================================
+# Media & Audio Files
+# ===========================================
+*.mp3
+*.wav
+*.ogg
+
+# ===========================================
+# Database Files
+# ===========================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ===========================================
+# Backup & Temporary Files
+# ===========================================
+*.bak
+*.backup
+*.old
+tmp/
+temp/
+
+# ===========================================
+# Configuration Files
+# ===========================================
+config.local.js
+config.local.json
+
+# ===========================================
+# Process Management
+# ===========================================
+.pm2/
+
+# ===========================================
+# Security & Certificates
+# ===========================================
+*.pem
+*.key
+*.crt
+
+# ===========================================
+# Docker & Deployment
+# ===========================================
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# ===========================================
+# Infrastructure
+# ===========================================
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# ===========================================
+# Yarn v2
+# ===========================================
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.* 
