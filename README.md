@@ -1,4 +1,4 @@
-# 🎮 Advanced Discord Bot
+# 🎮 TypeScript Bot Demo
 
 A feature-rich Discord bot built with TypeScript and Discord.js, featuring advanced leveling systems, RPG mechanics, music playback, moderation tools, and much more!
 
