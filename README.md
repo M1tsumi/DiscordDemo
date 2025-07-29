@@ -1,12 +1,12 @@
-# �� Discord Bot Demo
+#  Discord Bot Demo
 
 > **🌟 This is a demo project showcasing my Discord bot development skills for Fiverr!**
 > 
 > **💼 Looking for a custom Discord bot or server development?**
 > 
 > Check out my Fiverr gigs:
-> - **[Discord Custom Bot Development](https://www.fiverr.com/users/thomas_cobb23/manage_gigs/create-a-discord-bot-for-you/edit)** - Custom Discord bots tailored to your needs
-> - **[Discord Custom Server Development](https://www.fiverr.com/users/thomas_cobb23/manage_gigs/create-a-discord-bot-for-you/edit)** - Complete Discord server setup and configuration
+> - **[Discord Custom Bot Development](https://www.fiverr.com/thomas_cobb23/create-a-discord-bot-for-you)** - Custom Discord bots tailored to your needs
+> - **[Discord Custom Server Development](https://www.fiverr.com/thomas_cobb23/create-a-discord-bot-for-you)** - Complete Discord server setup and configuration
 > 
 > **🎯 This demo features:**
 > - Advanced leveling system with voice XP
@@ -378,7 +378,7 @@ I offer professional Discord development services on Fiverr:
 - Server branding and customization
 
 **📞 Contact me on Fiverr:**
-- **[Discord Custom Bot Development](https://www.fiverr.com/users/thomas_cobb23/manage_gigs/create-a-discord-bot-for-you/edit)**
-- **[Discord Custom Server Development](https://www.fiverr.com/users/thomas_cobb23/manage_gigs/create-a-discord-bot-for-you/edit)**
+- **[Discord Custom Bot Development](https://www.fiverr.com/thomas_cobb23/create-a-discord-bot-for-you)**
+- **[Discord Custom Server Development](https://www.fiverr.com/thomas_cobb23/create-a-discord-bot-for-you)**
 
 **💖 Consider supporting the development by contacting @quefep on Discord for donation options.**
