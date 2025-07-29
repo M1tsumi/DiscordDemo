@@ -69,6 +69,17 @@ A feature-rich Discord bot built with TypeScript and Discord.js, featuring advan
 
 ### Installation
 
+#### Option 1: Local Dashboard - Requirements Installer (Recommended)
+1. **Download and extract** the bot files
+2. **Double-click** `dashboardinstaller.bat` (Windows) or run `./start-bot-manager.sh` (Linux/Mac)
+3. **Enter your bot token** in the web interface
+4. **Manage your bot** through the beautiful GUI
+
+**If you encounter issues with the automatic launcher:**
+- Try `manual-setup.bat` for Windows users with npm PATH issues
+- See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for common solutions
+
+#### Option 2: Command Line
 1. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/advanced-discord-bot.git
@@ -82,7 +93,7 @@ A feature-rich Discord bot built with TypeScript and Discord.js, featuring advan
 
 3. **Set up environment variables**
    ```bash
-   cp .env.template .env
+   cp env.template .env
    ```
    Edit `.env` with your configuration (see Configuration section below)
 
@@ -101,6 +112,14 @@ For development with auto-restart:
 ```bash
 npm run dev
 ```
+
+### Bot Manager Features
+- **🌐 Web-based GUI** - Beautiful interface for bot management
+- **🔐 Secure token storage** - Tokens saved locally in .env file
+- **📊 Real-time stats** - View uptime, ping, and server count
+- **🎨 Bot customization** - Change username and avatar
+- **🔄 Auto-restart** - Bot automatically reconnects on startup
+- **📱 Cross-platform** - Works on Windows, Mac, and Linux
 
 ## ⚙️ Configuration
 
@@ -215,6 +234,15 @@ The bot features a sophisticated XP system that rewards various activities:
 ## 🐛 Troubleshooting
 
 ### Common Issues
+
+**npm not found error when starting bot manager**
+- **Solution 1**: Run `fix-npm.bat` for automatic npm fixing
+- **Solution 2**: Run `install-npm.bat` or `install-npm.ps1` for automated help
+- **Solution 3**: Reinstall Node.js from https://nodejs.org/ (includes npm)
+- **Solution 4**: Restart your computer after installing Node.js
+- **Solution 5**: Run as administrator
+- **Solution 6**: Check Windows Defender/firewall settings
+- **Solution 7**: Manually add npm to your PATH environment variable
 
 **Bot doesn't respond to commands**
 - Check if the bot has proper permissions
