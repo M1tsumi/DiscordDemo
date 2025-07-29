@@ -1,0 +1,15 @@
+{
+  "example_user_id": {
+    "id": "example_user_id",
+    "username": "ExampleUser",
+    "avatar": "https://cdn.discordapp.com/avatars/example_user_id/example_avatar.png",
+    "xp": 1500,
+    "level": 5,
+    "voiceTime": 3600,
+    "lastVoiceJoin": 1640995200000,
+    "messageCount": 150,
+    "lastMessageTime": 1640995200000,
+    "streakDays": 7,
+    "lastActiveDate": 1640995200000
+  }
+} 

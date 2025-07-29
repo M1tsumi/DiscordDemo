@@ -1,0 +1,48 @@
+{
+  "example_user_id": {
+    "id": "example_user_id",
+    "username": "ExampleUser",
+    "avatar": "https://cdn.discordapp.com/avatars/example_user_id/example_avatar.png",
+    "class": "Warrior",
+    "level": 10,
+    "xp": 5000,
+    "gold": 1000,
+    "title": "Brave",
+    "stats": {
+      "strength": 15,
+      "dexterity": 12,
+      "intelligence": 8,
+      "vitality": 14,
+      "wisdom": 10,
+      "charisma": 9
+    },
+    "combat": {
+      "attack": 25,
+      "defense": 20,
+      "magicAttack": 12,
+      "magicDefense": 15,
+      "criticalChance": 0.05,
+      "criticalDamage": 1.5
+    },
+    "resources": {
+      "hp": 150,
+      "maxHp": 150,
+      "mana": 80,
+      "maxMana": 80,
+      "stamina": 100,
+      "maxStamina": 100
+    },
+    "equipment": {
+      "weapon": null,
+      "armor": null,
+      "accessory": null
+    },
+    "inventory": [],
+    "skills": [],
+    "quests": [],
+    "lastDaily": 0,
+    "lastAdventure": 0,
+    "lastTraining": 0,
+    "lastRest": 0
+  }
+} 

@@ -1,0 +1,14 @@
+{
+  "example_guild_id": {
+    "prefix": "!",
+    "enableLeveling": true,
+    "enableModeration": true,
+    "enableMusic": true,
+    "enableRPG": true,
+    "logChannel": "mod-logs",
+    "welcomeChannel": "welcome",
+    "autoRole": "Member",
+    "antiSpam": true,
+    "raidProtection": true
+  }
+} 
