@@ -1,0 +1,76 @@
+# ===========================================
+# DISCORD BOT DEPENDENCIES
+# ===========================================
+
+# Core Discord.js and related packages
+discord.js@^14.21.0
+@discordjs/voice@^0.18.0
+@discordjs/opus@^0.10.0
+
+# TypeScript and development tools
+typescript@^5.8.3
+ts-node@^10.9.2
+@types/node@^24.1.0
+
+# Environment and configuration
+dotenv@^17.2.1
+
+# HTTP requests and API calls
+axios@^1.11.0
+node-fetch@^2.7.0
+
+# Music and audio processing
+play-dl@^1.9.7
+ffmpeg-static@^5.2.0
+spotify-web-api-node@^5.0.2
+@types/spotify-web-api-node@^5.0.11
+
+# Development and monitoring
+nodemon@^3.1.10
+
+# ===========================================
+# INSTALLATION INSTRUCTIONS
+# ===========================================
+
+# Install all dependencies:
+# npm install
+
+# Or install specific packages:
+# npm install discord.js @discordjs/voice @discordjs/opus
+# npm install typescript ts-node @types/node
+# npm install dotenv axios node-fetch
+# npm install play-dl ffmpeg-static spotify-web-api-node
+# npm install --save-dev nodemon @types/spotify-web-api-node
+
+# ===========================================
+# SYSTEM REQUIREMENTS
+# ===========================================
+
+# Node.js: 18.0.0 or higher
+# npm: 8.0.0 or higher
+# FFmpeg: For audio processing (included with ffmpeg-static)
+# Git: For version control
+
+# ===========================================
+# OPTIONAL DEPENDENCIES
+# ===========================================
+
+# These are optional and only needed for specific features:
+
+# For enhanced YouTube features:
+# youtube-dl (system package)
+
+# For advanced audio processing:
+# @discordjs/collection (included with discord.js)
+
+# For database features (if implemented):
+# sqlite3 or mongodb (not included in this bot)
+
+# ===========================================
+# VERSION COMPATIBILITY
+# ===========================================
+
+# Discord.js: 14.x (Latest stable)
+# Node.js: 18.x or higher
+# TypeScript: 5.x (Latest stable)
+# FFmpeg: Latest (via ffmpeg-static) 
