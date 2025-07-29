@@ -286,7 +286,7 @@ We welcome contributions! Please feel free to submit issues, feature requests, o
 ### Development & Support
 For suggestions, concerns, donations, or development inquiries, contact:
 - **Discord**: @quefep
-- **GitHub Issues**: [Create an issue](https://github.com/yourusername/advanced-discord-bot/issues)
+- **GitHub Issues**: [Create an issue]([https://github.com/yourusername/advanced-discord-bot/issues](https://github.com/M1tsumi/DiscordDemo/issues/new/choose))
 
 ### Features Under Development
 Some features are still in active development. For the latest updates and feature requests, please contact @quefep on Discord.
