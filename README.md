@@ -5,15 +5,15 @@ A feature-rich Discord bot built with TypeScript and Discord.js, featuring advan
 ## 🚀 Quick Start
 
 ### Windows Users
-[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](setup.bat)
+[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](start-bot-manager.bat)
 
-**Double-click** `setup.bat` to automatically install and configure your bot!
+**Upon download, double-click** `start-bot-manager.bat` to automatically install and configure your bot!
 
 ### Linux/Mac Users
 [![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](setup.sh)
 [![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=macos&logoColor=white)](setup.sh)
 
-**Run** `./setup.sh` in your terminal to automatically install and configure your bot!
+**Upon download, run** `./setup.sh` in your terminal to automatically install and configure your bot!
 
 ### 🎮 Bot Manager (Optional)
 After setup, you can use the web-based bot manager for easy configuration:

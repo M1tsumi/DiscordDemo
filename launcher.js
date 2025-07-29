@@ -22,35 +22,76 @@ const htmlTemplate = `
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            animation: shine 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes shine {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(180deg); }
         }
         
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
             text-align: center;
             max-width: 500px;
             width: 90%;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), transparent);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
         }
         
         .logo {
             font-size: 2.5em;
             font-weight: bold;
-            color: #333;
+            color: #ffffff;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
         }
         
         .subtitle {
-            color: #666;
+            color: #888888;
             margin-bottom: 30px;
             font-size: 1.1em;
+            letter-spacing: 1px;
         }
         
         .form-group {
@@ -61,43 +102,65 @@ const htmlTemplate = `
         label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
+            color: #cccccc;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
         
         input[type="text"], input[type="password"] {
             width: 100%;
             padding: 12px;
-            border: 2px solid #e1e5e9;
+            border: 2px solid #333333;
             border-radius: 10px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
+            background: #1a1a1a;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         input[type="text"]:focus, input[type="password"]:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #666666;
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.3),
+                0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+        
+        input[type="text"]::placeholder, input[type="password"]::placeholder {
+            color: #666666;
         }
         
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
+            background: linear-gradient(145deg, #333333, #1a1a1a);
+            color: #ffffff;
+            border: 1px solid #444444;
             padding: 15px 30px;
             border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
             margin: 10px 5px;
+            box-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
         
         .btn:hover {
             transform: translateY(-2px);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: linear-gradient(145deg, #444444, #2a2a2a);
         }
         
         .btn:active {
             transform: translateY(0);
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
         
         .status {
@@ -105,37 +168,40 @@ const htmlTemplate = `
             padding: 15px;
             border-radius: 10px;
             font-weight: 600;
+            border: 1px solid;
         }
         
         .status.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: linear-gradient(145deg, #1a2a1a, #0d1a0d);
+            color: #88cc88;
+            border-color: #2a4a2a;
         }
         
         .status.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: linear-gradient(145deg, #2a1a1a, #1a0d0d);
+            color: #cc8888;
+            border-color: #4a2a2a;
         }
         
         .status.info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+            background: linear-gradient(145deg, #1a1a2a, #0d0d1a);
+            color: #8888cc;
+            border-color: #2a2a4a;
         }
         
         .instructions {
             margin-top: 30px;
             padding: 20px;
-            background: #f8f9fa;
+            background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
             border-radius: 10px;
             text-align: left;
+            border: 1px solid #333333;
         }
         
         .instructions h3 {
-            color: #333;
+            color: #cccccc;
             margin-bottom: 15px;
+            letter-spacing: 1px;
         }
         
         .instructions ol {
@@ -144,7 +210,20 @@ const htmlTemplate = `
         
         .instructions li {
             margin-bottom: 8px;
-            color: #666;
+            color: #888888;
+            line-height: 1.5;
+        }
+        
+        .instructions a {
+            color: #aaaaaa;
+            text-decoration: none;
+            border-bottom: 1px solid #666666;
+            transition: color 0.3s ease;
+        }
+        
+        .instructions a:hover {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
         }
     </style>
 </head>
