@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'adminset',
   description: 'Configure admin roles and command permissions (Server Owner Only).',
@@ -499,3 +499,4 @@ async function showResetConfirmation(interaction: any, adminService: any, guild:
 
   await interaction.update({ embeds: [embed], components: [confirmButtons] });
 } 
+

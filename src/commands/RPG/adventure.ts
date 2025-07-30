@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'adventure',
   description: 'Go on an adventure to earn XP and rewards (Premium Feature)',
@@ -88,3 +88,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
 
   await interaction.reply({ embeds: [embed], ephemeral: true });
 } 
+

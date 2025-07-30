@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'automod',
   description: 'Configure automated moderation features for the server.',
@@ -217,3 +217,4 @@ function getFeatureConfig(feature: string, settings?: string): string {
   };
   return configs[feature] || 'Configuration not available';
 } 
+

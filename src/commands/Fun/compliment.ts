@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'compliment',
   description: 'Get a personalized compliment',
@@ -85,3 +85,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
   
   await interaction.reply({ embeds: [embed] });
 } 
+

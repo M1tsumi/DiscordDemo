@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'unmute',
   description: 'Unmute a user in the server.',
@@ -31,3 +31,4 @@ export async function execute(message: Message, args: string[]) {
   await user.timeout(null);
   await message.reply(`Unmuted ${user.user.tag}.`);
 }
+

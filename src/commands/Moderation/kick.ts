@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'kick',
   description: 'Kick a user from the server.',
@@ -32,3 +32,4 @@ export async function execute(message: Message, args: string[]) {
   await user.kick();
   await message.reply(`Kicked ${user.user.tag}`);
 }
+

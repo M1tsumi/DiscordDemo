@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'serverinfo',
   description: 'Show information about this server.',
@@ -74,3 +74,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
     
   await interaction.reply({ embeds: [embed] });
 }
+

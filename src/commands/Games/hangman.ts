@@ -14,7 +14,7 @@ import {
 import { CommandCategory } from '../../types/Command';
 
 import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'hangman',
   description: 'Play a team-based game of Hangman with friends!',
@@ -634,3 +634,4 @@ export async function handleHangmanMessage(message: Message): Promise<boolean> {
   
   return false; // No game interaction handled
 } 
+

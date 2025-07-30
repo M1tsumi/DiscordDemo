@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'listservers',
   description: 'List all servers the bot is in with detailed information.',
@@ -238,3 +238,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
 
   await interaction.reply({ embeds: [embed] });
 } 
+

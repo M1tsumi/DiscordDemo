@@ -18,7 +18,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
-import { Command } from '../../types/Command';
+
 // ES module equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -217,3 +217,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
 
   await interaction.reply({ embeds: [embed] });
 } 
+

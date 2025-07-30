@@ -14,7 +14,7 @@ import {
 import { CommandCategory } from '../../types/Command';
 
 import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'userinfo',
   description: 'Show information about a user.',
@@ -84,3 +84,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
 
   await interaction.reply({ embeds: [embed] });
 }
+

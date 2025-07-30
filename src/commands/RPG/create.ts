@@ -14,7 +14,7 @@ import {
 import { CommandCategory } from '../../types/Command';
 
 import { RPGService } from '../../services/rpgService';
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'create',
   description: 'Create your RPG character and begin your adventure!',
@@ -242,3 +242,4 @@ export async function handleCreateCharacterInteraction(interaction: any) {
     });
   }
 } 
+

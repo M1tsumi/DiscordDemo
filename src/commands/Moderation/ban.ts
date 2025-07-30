@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'ban',
   description: 'Ban a user from the server.',
@@ -32,3 +32,4 @@ export async function execute(message: Message, args: string[]) {
   await user.ban();
   await message.reply(`Banned ${user.user.tag}`);
 }
+

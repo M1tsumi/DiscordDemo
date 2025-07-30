@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'trivia',
   description: 'Play trivia with multiple categories and difficulty levels',
@@ -403,3 +403,4 @@ export async function handleTriviaAnswer(message: Message) {
 }
 
 export { activeGames }; 
+

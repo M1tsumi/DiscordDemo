@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'autorolesetup',
   description: 'Advanced auto-role configuration wizard (Premium Feature)',

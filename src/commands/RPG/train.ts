@@ -14,7 +14,7 @@ import {
 import { CommandCategory } from '../../types/Command';
 
 import { RPGService } from '../../services/rpgService';
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'train',
   description: 'Train your character stats to become stronger.',
@@ -291,3 +291,4 @@ export async function handleTrainStatInteraction(interaction: any) {
     });
   }
 } 
+

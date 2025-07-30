@@ -17,7 +17,7 @@ import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'botstats',
   description: 'Display bot statistics and system information.',
@@ -164,3 +164,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
 
   await interaction.reply({ embeds: [embed] });
 } 
+

@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'reminder',
   description: 'Set a reminder for yourself or others',
@@ -235,3 +235,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
 
 // Export for potential list command
 export { reminders }; 
+

@@ -134,6 +134,8 @@ client.on('interactionCreate', async (interaction) => {
   if (!interaction.isButton()) return;
 
   try {
+    console.log(`🔘 Button interaction received: ${interaction.customId}`);
+    
     // Handle copy translation button
     if (interaction.customId.startsWith('copy_translation_')) {
       const { handleCopyTranslation } = await import('./commands/Utility/translate.js');
@@ -176,20 +178,6 @@ client.on('interactionCreate', async (interaction) => {
       return;
     }
 
-    // Handle translate copy interactions
-    if (interaction.customId.startsWith('copy_translation_')) {
-      const { handleCopyTranslation } = await import('./commands/Utility/translate.js');
-      await handleCopyTranslation(interaction);
-      return;
-    }
-
-    // Handle copy translation interactions
-    if (interaction.customId.startsWith('copy_translation_')) {
-      const { handleCopyTranslation } = await import('./commands/Utility/translate.js');
-      await handleCopyTranslation(interaction);
-      return;
-    }
-
     // Handle help category interactions
     if (interaction.customId.startsWith('help_category_')) {
       const { handleHelpCategoryInteraction } = await import('./commands/General/help.js');
@@ -211,9 +199,30 @@ client.on('interactionCreate', async (interaction) => {
       return;
     }
 
+    // If no handler was found, log it
+    console.log(`⚠️  No handler found for button interaction: ${interaction.customId}`);
+
   } catch (error) {
-    console.error('Error handling button interaction:', error);
-    await interaction.reply({ content: '❌ An error occurred while processing your interaction.', ephemeral: true });
+    console.error('❌ Error handling button interaction:', error);
+    console.error(`   Interaction ID: ${interaction.customId}`);
+    console.error(`   User: ${interaction.user.tag}`);
+    console.error(`   Guild: ${interaction.guild?.name || 'DM'}`);
+    
+    try {
+      if (!interaction.replied && !interaction.deferred) {
+        await interaction.reply({ 
+          content: '❌ An error occurred while processing your interaction. Please try again later.', 
+          ephemeral: true 
+        });
+      } else {
+        await interaction.followUp({ 
+          content: '❌ An error occurred while processing your interaction. Please try again later.', 
+          ephemeral: true 
+        });
+      }
+    } catch (followUpError) {
+      console.error('❌ Failed to send error message to user:', followUpError);
+    }
   }
 });
 
@@ -222,6 +231,8 @@ client.on('interactionCreate', async (interaction) => {
   if (!interaction.isStringSelectMenu()) return;
 
   try {
+    console.log(`📋 Select menu interaction received: ${interaction.customId}`);
+    
     // Handle help category selection
     if (interaction.customId === 'help_category_select') {
       const { handleHelpCategoryInteraction } = await import('./commands/General/help.js');
@@ -250,9 +261,30 @@ client.on('interactionCreate', async (interaction) => {
       return;
     }
 
+    // If no handler was found, log it
+    console.log(`⚠️  No handler found for select menu interaction: ${interaction.customId}`);
+
   } catch (error) {
-    console.error('Error handling string select menu interaction:', error);
-    await interaction.reply({ content: '❌ An error occurred while processing your selection.', ephemeral: true });
+    console.error('❌ Error handling string select menu interaction:', error);
+    console.error(`   Interaction ID: ${interaction.customId}`);
+    console.error(`   User: ${interaction.user.tag}`);
+    console.error(`   Guild: ${interaction.guild?.name || 'DM'}`);
+    
+    try {
+      if (!interaction.replied && !interaction.deferred) {
+        await interaction.reply({ 
+          content: '❌ An error occurred while processing your selection. Please try again later.', 
+          ephemeral: true 
+        });
+      } else {
+        await interaction.followUp({ 
+          content: '❌ An error occurred while processing your selection. Please try again later.', 
+          ephemeral: true 
+        });
+      }
+    } catch (followUpError) {
+      console.error('❌ Failed to send error message to user:', followUpError);
+    }
   }
 });
 
@@ -261,6 +293,8 @@ client.on('interactionCreate', async (interaction) => {
   if (!interaction.isModalSubmit()) return;
 
   try {
+    console.log(`📝 Modal submission received: ${interaction.customId}`);
+    
     // Handle admin settings modal
     if (interaction.customId === 'admin_settings_modal') {
       const { handleAdminInteraction } = await import('./commands/Utility/adminset.js');
@@ -268,9 +302,30 @@ client.on('interactionCreate', async (interaction) => {
       return;
     }
 
+    // If no handler was found, log it
+    console.log(`⚠️  No handler found for modal submission: ${interaction.customId}`);
+
   } catch (error) {
-    console.error('Error handling modal submission:', error);
-    await interaction.reply({ content: '❌ An error occurred while processing your submission.', ephemeral: true });
+    console.error('❌ Error handling modal submission:', error);
+    console.error(`   Interaction ID: ${interaction.customId}`);
+    console.error(`   User: ${interaction.user.tag}`);
+    console.error(`   Guild: ${interaction.guild?.name || 'DM'}`);
+    
+    try {
+      if (!interaction.replied && !interaction.deferred) {
+        await interaction.reply({ 
+          content: '❌ An error occurred while processing your submission. Please try again later.', 
+          ephemeral: true 
+        });
+      } else {
+        await interaction.followUp({ 
+          content: '❌ An error occurred while processing your submission. Please try again later.', 
+          ephemeral: true 
+        });
+      }
+    } catch (followUpError) {
+      console.error('❌ Failed to send error message to user:', followUpError);
+    }
   }
 });
 

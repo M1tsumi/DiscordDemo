@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'backup',
   description: 'Create and manage server configuration backups.',
@@ -444,3 +444,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
     });
   }
 } 
+

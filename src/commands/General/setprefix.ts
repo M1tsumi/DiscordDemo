@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'setprefix',
   description: 'Change the command prefix for this server.',
@@ -162,3 +162,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
     });
   }
 } 
+

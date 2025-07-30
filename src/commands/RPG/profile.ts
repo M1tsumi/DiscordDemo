@@ -14,7 +14,7 @@ import {
 import { CommandCategory } from '../../types/Command';
 
 import { RPGService } from '../../services/rpgService';
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'profile-rpg',
   description: 'View your RPG character profile and stats.',
@@ -274,3 +274,4 @@ function createProfileEmbed(character: any, user: any, client: any): EmbedBuilde
 
   return embed;
 } 
+

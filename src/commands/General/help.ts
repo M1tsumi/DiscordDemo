@@ -13,7 +13,6 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
 export const data = {
   name: 'help',
   description: 'List all commands and their usage.',
@@ -55,7 +54,7 @@ export async function execute(message: Message, args?: string[]) {
     if (commandName) {
       // Show specific command help
       const command = commandHandler.getCommands().get(commandName) || 
-                     commandHandler.getCommands().find((cmd: Command) => cmd.data.aliases?.includes(commandName));
+                     commandHandler.getCommands().find((cmd: any) => cmd.data.aliases?.includes(commandName));
       
       if (!command) {
         await message.reply(`❌ Command \`${commandName}\` not found!\nUse \`${prefix}help\` to see all available commands.`);
@@ -100,39 +99,32 @@ export async function execute(message: Message, args?: string[]) {
       return;
     }
 
-    // Get the final command count after potential reload
     const finalCommandCount = commandHandler.getCommands().size;
-    
-    // Show main help embed with dropdown
     const categories = Object.values(CommandCategory);
     const client = message.client;
-    
-    // Main help embed
+
     const mainEmbed = new EmbedBuilder()
-      .setAuthor({ 
+      .setAuthor({
         name: `${client.user?.username} Help Center`,
         iconURL: client.user?.displayAvatarURL()
       })
       .setTitle('📚 **Command Documentation**')
-      .setDescription(
-        `Welcome to the comprehensive command guide! I'm a feature-rich Discord bot with **${finalCommandCount} commands** across multiple categories.\n\n` +
+      .setDescription(`Welcome to the comprehensive command guide! I'm a feature-rich Discord bot with **${finalCommandCount} commands** across multiple categories.\n\n` +
         `**Quick Navigation:**\n` +
         `• Use the dropdown menu below to select a category\n` +
         `• Use \`${prefix}help <command>\` for detailed command information\n` +
         `• Commands work with both prefix (\`${prefix}\`) and slash (\`/\`) formats\n` +
         `• Use \`${prefix}setprefix <new>\` to customize your server's prefix\n\n` +
-        `**✨ Featured Commands:** \`${prefix}poll\`, \`${prefix}tictactoe\`, \`${prefix}daily\`, \`${prefix}botstats\``
-      )
+        `**✨ Featured Commands:** \`${prefix}poll\`, \`${prefix}tictactoe\`, \`${prefix}daily\`, \`${prefix}botstats\``)
       .setColor(0x5865f2)
       .setThumbnail(client.user?.displayAvatarURL())
       .setTimestamp()
-      .setFooter({ 
+      .setFooter({
         text: `${client.user?.username} • Serving ${client.guilds.cache.size} servers`,
         iconURL: client.user?.displayAvatarURL()
       });
 
-    // Create dropdown menu
-    const categoryEmojis: Record<string, string> = {
+    const categoryEmojis = {
       'General': '🛠️',
       'Utility': '🔧',
       'Fun': '🎉',
@@ -140,30 +132,59 @@ export async function execute(message: Message, args?: string[]) {
       'Games': '🎮',
       'Information': '📊',
       'Leveling': '💰',
-      'Music': '🎵'
+      'Music': '🎵',
+      'RPG': '⚔️'
     };
 
-    const selectMenu = new StringSelectMenuBuilder()
-      .setCustomId('help_category')
+    const categoryDescriptions = {
+      'General': 'Essential utility commands for server management and information',
+      'Utility': 'Developer and administrative tools',
+      'Fun': 'Entertainment commands to keep your server engaging and lively',
+      'Moderation': 'Powerful tools for maintaining order and managing your community',
+      'Games': 'Interactive games and challenges for server entertainment',
+      'Information': 'Data retrieval and informational commands from various sources',
+      'Leveling': 'XP tracking, daily rewards, and virtual economy features',
+      'Music': 'Audio playback and music management features',
+      'RPG': 'Character creation, adventures, and role-playing features'
+    };
+
+    // Create category list
+    let categoryList = '';
+    categories.forEach(category => {
+      const categoryCommands = commandHandler.getCommandsByCategory(category);
+      if (categoryCommands.length > 0) {
+        const emoji = categoryEmojis[category] || '📋';
+        categoryList += `${emoji} **${category}** (${categoryCommands.length} commands)\n`;
+      }
+    });
+
+    mainEmbed.addFields([
+      { name: '📂 Categories', value: categoryList, inline: false }
+    ]);
+
+    // Create category selection menu
+    const categoryOptions = categories
+      .filter(category => commandHandler.getCommandsByCategory(category).length > 0)
+      .map(category => {
+        const emoji = categoryEmojis[category] || '📋';
+        return new StringSelectMenuOptionBuilder()
+          .setLabel(category)
+          .setDescription(categoryDescriptions[category] || 'Various commands for this category')
+          .setValue(category)
+          .setEmoji(emoji);
+      });
+
+    const categorySelect = new StringSelectMenuBuilder()
+      .setCustomId('help_category_select')
       .setPlaceholder('Select a category to view commands')
-      .addOptions(
-        categories.map(category => {
-          const categoryCommands = commandHandler.getCommandsByCategory(category);
-          const emoji = categoryEmojis[category] || '📋';
-          return new StringSelectMenuOptionBuilder()
-            .setLabel(`${category} (${categoryCommands.length} commands)`)
-            .setDescription(`View ${category.toLowerCase()} commands`)
-            .setValue(category)
-            .setEmoji(emoji);
-        })
-      );
+      .addOptions(categoryOptions);
 
-    const row = new ActionRowBuilder<StringSelectMenuBuilder>()
-      .addComponents(selectMenu);
+    const categoryRow = new ActionRowBuilder<StringSelectMenuBuilder>()
+      .addComponents(categorySelect);
 
-    await message.reply({ 
-      embeds: [mainEmbed], 
-      components: [row] 
+    await message.reply({
+      embeds: [mainEmbed],
+      components: [categoryRow]
     });
 
   } catch (error) {
@@ -174,31 +195,21 @@ export async function execute(message: Message, args?: string[]) {
 
 export async function executeSlash(interaction: ChatInputCommandInteraction) {
   try {
+    // Import here to avoid circular dependency issues
     const { commandHandler, settingsService } = await import('../../index');
+    
     const commandName = interaction.options.getString('command')?.toLowerCase();
     const prefix = interaction.guild ? settingsService.getPrefix(interaction.guild.id) : '!';
-    
-    // Debug information
-    const totalCommands = commandHandler.getCommands().size;
-    console.log(`🔍 Help slash command debug: Found ${totalCommands} commands`);
-    
-    // If no commands are loaded, try to reload them
-    if (totalCommands === 0) {
-      console.log('🔄 No commands found, attempting to reload...');
-      await commandHandler.loadCommands();
-      const reloadedCommands = commandHandler.getCommands().size;
-      console.log(`🔄 Reloaded ${reloadedCommands} commands`);
-    }
     
     if (commandName) {
       // Show specific command help
       const command = commandHandler.getCommands().get(commandName) || 
-                     commandHandler.getCommands().find((cmd: Command) => cmd.data.aliases?.includes(commandName));
+                     commandHandler.getCommands().find((cmd: any) => cmd.data.aliases?.includes(commandName));
       
       if (!command) {
-        await interaction.reply({ 
-          content: `❌ Command \`${commandName}\` not found!\nUse \`/help\` to see all available commands.`, 
-          ephemeral: true 
+        await interaction.reply({
+          content: `❌ Command \`${commandName}\` not found!\nUse \`${prefix}help\` to see all available commands.`,
+          ephemeral: true
         });
         return;
       }
@@ -237,43 +248,35 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
         }]);
       }
 
-      await interaction.reply({ embeds: [embed] });
+      await interaction.reply({ embeds: [embed], ephemeral: true });
       return;
     }
 
-    // Get the final command count after potential reload
     const finalCommandCount = commandHandler.getCommands().size;
-    
-    // Show main help embed with dropdown
     const categories = Object.values(CommandCategory);
-    const client = interaction.client;
-    
-    // Main help embed
+
     const mainEmbed = new EmbedBuilder()
-      .setAuthor({ 
-        name: `${client.user?.username} Help Center`,
-        iconURL: client.user?.displayAvatarURL()
+      .setAuthor({
+        name: `${interaction.client.user?.username} Help Center`,
+        iconURL: interaction.client.user?.displayAvatarURL()
       })
       .setTitle('📚 **Command Documentation**')
-      .setDescription(
-        `Welcome to the comprehensive command guide! I'm a feature-rich Discord bot with **${finalCommandCount} commands** across multiple categories.\n\n` +
+      .setDescription(`Welcome to the comprehensive command guide! I'm a feature-rich Discord bot with **${finalCommandCount} commands** across multiple categories.\n\n` +
         `**Quick Navigation:**\n` +
         `• Use the dropdown menu below to select a category\n` +
-        `• Use \`/help <command>\` for detailed command information\n` +
+        `• Use \`${prefix}help <command>\` for detailed command information\n` +
         `• Commands work with both prefix (\`${prefix}\`) and slash (\`/\`) formats\n` +
         `• Use \`${prefix}setprefix <new>\` to customize your server's prefix\n\n` +
-        `**✨ Featured Commands:** \`/poll\`, \`/tictactoe\`, \`/daily\`, \`/botstats\``
-      )
+        `**✨ Featured Commands:** \`${prefix}poll\`, \`${prefix}tictactoe\`, \`${prefix}daily\`, \`${prefix}botstats\``)
       .setColor(0x5865f2)
-      .setThumbnail(client.user?.displayAvatarURL())
+      .setThumbnail(interaction.client.user?.displayAvatarURL())
       .setTimestamp()
-      .setFooter({ 
-        text: `${client.user?.username} • Serving ${client.guilds.cache.size} servers`,
-        iconURL: client.user?.displayAvatarURL()
+      .setFooter({
+        text: `${interaction.client.user?.username} • Serving ${interaction.client.guilds.cache.size} servers`,
+        iconURL: interaction.client.user?.displayAvatarURL()
       });
 
-    // Create dropdown menu
-    const categoryEmojis: Record<string, string> = {
+    const categoryEmojis = {
       'General': '🛠️',
       'Utility': '🔧',
       'Fun': '🎉',
@@ -281,37 +284,67 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
       'Games': '🎮',
       'Information': '📊',
       'Leveling': '💰',
-      'Music': '🎵'
+      'Music': '🎵',
+      'RPG': '⚔️'
     };
 
-    const selectMenu = new StringSelectMenuBuilder()
-      .setCustomId('help_category')
+    const categoryDescriptions = {
+      'General': 'Essential utility commands for server management and information',
+      'Utility': 'Developer and administrative tools',
+      'Fun': 'Entertainment commands to keep your server engaging and lively',
+      'Moderation': 'Powerful tools for maintaining order and managing your community',
+      'Games': 'Interactive games and challenges for server entertainment',
+      'Information': 'Data retrieval and informational commands from various sources',
+      'Leveling': 'XP tracking, daily rewards, and virtual economy features',
+      'Music': 'Audio playback and music management features',
+      'RPG': 'Character creation, adventures, and role-playing features'
+    };
+
+    // Create category list
+    let categoryList = '';
+    categories.forEach(category => {
+      const categoryCommands = commandHandler.getCommandsByCategory(category);
+      if (categoryCommands.length > 0) {
+        const emoji = categoryEmojis[category] || '📋';
+        categoryList += `${emoji} **${category}** (${categoryCommands.length} commands)\n`;
+      }
+    });
+
+    mainEmbed.addFields([
+      { name: '📂 Categories', value: categoryList, inline: false }
+    ]);
+
+    // Create category selection menu
+    const categoryOptions = categories
+      .filter(category => commandHandler.getCommandsByCategory(category).length > 0)
+      .map(category => {
+        const emoji = categoryEmojis[category] || '📋';
+        return new StringSelectMenuOptionBuilder()
+          .setLabel(category)
+          .setDescription(categoryDescriptions[category] || 'Various commands for this category')
+          .setValue(category)
+          .setEmoji(emoji);
+      });
+
+    const categorySelect = new StringSelectMenuBuilder()
+      .setCustomId('help_category_select')
       .setPlaceholder('Select a category to view commands')
-      .addOptions(
-        categories.map(category => {
-          const categoryCommands = commandHandler.getCommandsByCategory(category);
-          const emoji = categoryEmojis[category] || '📋';
-          return new StringSelectMenuOptionBuilder()
-            .setLabel(`${category} (${categoryCommands.length} commands)`)
-            .setDescription(`View ${category.toLowerCase()} commands`)
-            .setValue(category)
-            .setEmoji(emoji);
-        })
-      );
+      .addOptions(categoryOptions);
 
-    const row = new ActionRowBuilder<StringSelectMenuBuilder>()
-      .addComponents(selectMenu);
+    const categoryRow = new ActionRowBuilder<StringSelectMenuBuilder>()
+      .addComponents(categorySelect);
 
-    await interaction.reply({ 
-      embeds: [mainEmbed], 
-      components: [row] 
+    await interaction.reply({
+      embeds: [mainEmbed],
+      components: [categoryRow],
+      ephemeral: true
     });
 
   } catch (error) {
     console.error('Error in help slash command:', error);
-    await interaction.reply({ 
+    await interaction.reply({
       content: '❌ There was an error loading the help information. Please try again later.',
-      ephemeral: true 
+      ephemeral: true
     });
   }
 }
@@ -360,7 +393,7 @@ export async function handleHelpCategoryInteraction(interaction: any) {
     
     // Create command list with descriptions
     const commandList = categoryCommands
-      .map((cmd: Command) => {
+      .map((cmd: any) => {
         const cooldownText = cmd.data.cooldown && cmd.data.cooldown > 0 ? ` (${cmd.data.cooldown}s)` : '';
         return `• \`${cmd.data.name}\`${cooldownText} - ${cmd.data.description}`;
       })
@@ -415,3 +448,4 @@ function getCategoryColor(category: string): number {
   };
   return colors[category] || 0x95a5a6;
 }
+

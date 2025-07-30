@@ -1,14 +1,14 @@
 
 
 import { Client, Collection, Message, ChatInputCommandInteraction } from 'discord.js';
-import { Command, CommandCategory } from '../types/Command.js';
+import { CommandCategory } from '../types/Command.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 export class CommandHandler {
   private client: Client;
-  private commands: Collection<string, Command>;
+  private commands: Collection<string, any>;
   private aliases: Collection<string, string>;
   private cooldowns: Collection<string, Collection<string, number>>;
   public prefix: string;
@@ -67,7 +67,7 @@ export class CommandHandler {
             const commandModule = await import(importPath);
             
             if (commandModule.data && commandModule.execute) {
-              const command: Command = {
+              const command: any = {
                 data: commandModule.data,
                 execute: commandModule.execute,
                 executeSlash: commandModule.executeSlash,
@@ -158,7 +158,7 @@ export class CommandHandler {
     }
   }
 
-  private getCommand(name: string): Command | undefined {
+  private getCommand(name: string): any {
     return this.commands.get(name) || this.commands.get(this.aliases.get(name) || '');
   }
 
@@ -203,11 +203,11 @@ export class CommandHandler {
     setTimeout(() => timestamps.delete(userId), cooldownAmount * 1000);
   }
 
-  getCommands(): Collection<string, Command> {
+  getCommands(): Collection<string, any> {
     return this.commands;
   }
 
-  getCommandsByCategory(category: CommandCategory): Command[] {
+  getCommandsByCategory(category: CommandCategory): any[] {
     return Array.from(this.commands.values()).filter(cmd => cmd.data.category === category);
   }
 } 

@@ -14,7 +14,7 @@ import {
 import { CommandCategory } from '../../types/Command';
 
 import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'tictactoe',
   description: 'Play tic-tac-toe against another player.',
@@ -316,3 +316,4 @@ export async function handleTicTacToeInteraction(interaction: any) {
     }
   }
 } 
+

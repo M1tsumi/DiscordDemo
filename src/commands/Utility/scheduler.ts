@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'scheduler',
   description: 'Schedule automated tasks and announcements.',
@@ -239,3 +239,4 @@ function getNextRunTime(schedule: string): string {
   const nextRun = new Date(now.getTime() + 2 * 60 * 60 * 1000); // 2 hours from now
   return nextRun.toLocaleString();
 } 
+

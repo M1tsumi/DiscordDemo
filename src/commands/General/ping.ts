@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'ping',
   description: 'Check the bot latency.',
@@ -41,3 +41,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
   const apiLatency = Math.round(interaction.client.ws.ping);
   await interaction.editReply(`🏓 Pong!\n📡 **Bot Latency:** ${latency}ms\n🌐 **API Latency:** ${apiLatency}ms`);
 }
+

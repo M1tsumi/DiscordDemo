@@ -14,7 +14,7 @@ import {
 import { CommandCategory } from '../../types/Command';
 
 import { RPGService } from '../../services/rpgService';
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'daily',
   description: 'Claim your daily rewards and bonuses.',
@@ -118,3 +118,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
     });
   }
 } 
+

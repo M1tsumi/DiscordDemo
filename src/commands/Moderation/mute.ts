@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'mute',
   description: 'Mute a user in the server.',
@@ -32,3 +32,4 @@ export async function execute(message: Message, args: string[]) {
   await user.timeout(duration);
   await message.reply(`Muted ${user.user.tag} for ${duration / 60000} minutes.`);
 }
+

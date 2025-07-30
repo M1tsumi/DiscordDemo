@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'timer',
   description: 'Set a countdown timer',
@@ -153,3 +153,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
 }
 
 export { timers }; 
+

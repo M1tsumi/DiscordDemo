@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'wouldyourather',
   description: 'Get a thought-provoking "Would You Rather" question!',
@@ -382,3 +382,4 @@ export async function handleWYRInteraction(interaction: any) {
     });
   }
 } 
+

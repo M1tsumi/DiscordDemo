@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'warn',
   description: 'Warn a user.',
@@ -31,3 +31,4 @@ export async function execute(message: Message, args: string[]) {
   const reason = args.slice(1).join(' ') || 'No reason provided.';
   await message.reply(`${user.tag} has been warned. Reason: ${reason}`);
 }
+

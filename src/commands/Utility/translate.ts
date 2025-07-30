@@ -19,7 +19,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import axios from 'axios';
 import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
-import { Command } from '../../types/Command';
+
 const LANGUAGES = [
   { code: 'en', name: 'English', emoji: '🇬🇧', native: 'English' },
   { code: 'es', name: 'Spanish', emoji: '🇪🇸', native: 'Español' },
@@ -248,3 +248,4 @@ export async function handleCopyTranslation(interaction: any) {
     });
   }
 }
+

@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'coinflip',
   description: 'Flip a coin and get heads or tails.',
@@ -66,3 +66,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
 
   await interaction.editReply({ embeds: [embed] });
 } 
+

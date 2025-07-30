@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'poll',
   description: 'Create an interactive poll with up to 4 options.',
@@ -303,3 +303,4 @@ export async function handlePollInteraction(interaction: any) {
     });
   }
 } 
+

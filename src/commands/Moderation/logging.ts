@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'logging',
   description: 'Configure comprehensive server logging and audit trails.',
@@ -261,3 +261,4 @@ function getFeatureEvents(feature: string): string {
   };
   return events[feature] || 'Events not specified';
 } 
+

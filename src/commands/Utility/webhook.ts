@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'webhook',
   description: 'Manage Discord webhooks for external integrations.',
@@ -313,3 +313,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
     await interaction.reply({ embeds: [embed] });
   }
 } 
+

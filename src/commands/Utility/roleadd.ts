@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'roleadd',
   description: 'Add a role to the admin role list (Server Owner Only).',
@@ -201,3 +201,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
     });
   }
 } 
+

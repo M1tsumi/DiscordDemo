@@ -14,7 +14,7 @@ import {
 import { CommandCategory } from '../../types/Command';
 
 import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'profile-level',
   description: 'Show your leveling profile with level and XP',
@@ -115,3 +115,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
     .setFooter({ text: `Next Title: ${nextLevelInfo.title}` });
   await interaction.reply({ embeds: [embed] });
 }
+

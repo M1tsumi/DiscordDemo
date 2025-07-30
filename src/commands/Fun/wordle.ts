@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 // Wordle game with 575+ 5-letter words and improved randomization
 
 export const data = {
@@ -376,3 +376,4 @@ export async function handleWordleAnswer(message: Message): Promise<boolean> {
   await message.reply({ embeds: [embed] });
   return true;
 } 
+

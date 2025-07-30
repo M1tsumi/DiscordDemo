@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { CommandCategory } from '../../types/Command';
 
-import { Command } from '../../types/Command';
+
 export const data = {
   name: 'createinvite',
   description: 'Create an invite link to any server the bot is in.',
@@ -276,3 +276,4 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
     });
   }
 } 
+
