@@ -26,11 +26,16 @@
     "noPropertyAccessFromIndexSignature": false,
     "noUncheckedIndexedAccess": false,
     "allowUnusedLabels": true,
-    "allowUnreachableCode": true
+    "allowUnreachableCode": true,
+    "allowImportingTsExtensions": false,
+    "noEmit": false
   },
   "ts-node": {
     "esm": true,
-    "experimentalSpecifierResolution": "node"
+    "experimentalSpecifierResolution": "node",
+    "moduleTypes": {
+      "**/*": "esm"
+    }
   },
   "include": [
     "src/**/*"

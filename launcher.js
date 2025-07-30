@@ -429,9 +429,22 @@ const server = http.createServer((req, res) => {
                     console.log('Build error, but continuing with ts-node...');
                 }
                 
-                // Start the bot process with ts-node for development
-                console.log('Starting bot with ts-node...');
-                botProcess = spawn('npx', ['ts-node', 'src/index.ts'], {
+                // Try to start the bot with the built version first, then fall back to ts-node
+                console.log('Starting bot...');
+                let startCommand;
+                let startArgs;
+                
+                if (fs.existsSync('dist/index.js')) {
+                    console.log('Using built version from dist/');
+                    startCommand = 'node';
+                    startArgs = ['dist/index.js'];
+                } else {
+                    console.log('Using ts-node for development');
+                    startCommand = 'npx';
+                    startArgs = ['ts-node', '--esm', 'src/index.ts'];
+                }
+                
+                botProcess = spawn(startCommand, startArgs, {
                     stdio: 'pipe',
                     shell: true,
                     env: { ...process.env, DISCORD_TOKEN: data.token, BOT_PREFIX: data.prefix || '!' }
