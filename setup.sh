@@ -133,7 +133,7 @@ fi
 # Test command loading
 echo ""
 echo "Testing command loading..."
-if node -e "
+if node --experimental-specifier-resolution=node -e "
 import('./dist/index.js').then(() => {
   console.log('✓ Command loading test passed');
 }).catch(err => {
@@ -145,6 +145,7 @@ import('./dist/index.js').then(() => {
 else
     echo "WARNING: Command loading test failed"
     echo "This might indicate an issue with the TypeScript compilation"
+    echo "You can still run the bot in development mode with 'npm run dev'"
 fi
 
 echo ""
@@ -154,8 +155,9 @@ echo "==========================================="
 echo ""
 echo "Next steps:"
 echo "1. Edit .env file with your Discord bot token"
-echo "2. Run 'npm start' to start the bot"
-echo "3. For development, use 'npm run dev'"
+echo "2. Run 'npm start' to start the bot (production mode)"
+echo "3. Run 'npm run dev' for development mode"
+echo "4. For Linux-specific issues, try 'npm run start:linux'"
 echo ""
 echo "Troubleshooting:"
 echo "- If you get permission errors, try: chmod +x setup.sh"

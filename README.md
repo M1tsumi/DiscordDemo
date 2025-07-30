@@ -55,7 +55,7 @@
 After setup, you can use the web-based bot manager for easy configuration:
 
 **Windows:** Double-click `start-bot-manager.bat`  
-**Linux/Mac:** Run `./start-bot-manager.sh`
+**Linux/Mac:** Run `./start-linux.sh`
 
 This opens a beautiful web interface at `http://localhost:3000` where you can:
 - Configure your Discord bot token
@@ -135,7 +135,7 @@ This opens a beautiful web interface at `http://localhost:3000` where you can:
 
 #### Windows
 1. **Download and extract** the Discord bot files
-2. **Double-click** `setup.bat`
+2. **Double-click** `start-bot-manager.bat`
 3. **Follow the prompts** to configure your Discord bot
 4. **Start your bot** with `npm start`
 

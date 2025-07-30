@@ -7,7 +7,7 @@ import {
   ButtonBuilder,
   ButtonStyle
 } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+
 
 export const data = {
   name: 'wouldyourather',

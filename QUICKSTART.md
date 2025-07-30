@@ -12,7 +12,7 @@ Get your Discord bot running in 5 minutes!
 
 **Windows:**
 ```bash
-setup.bat
+start-bot-manager.bat
 ```
 
 **Linux/Mac:**

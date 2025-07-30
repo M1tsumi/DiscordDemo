@@ -1,5 +1,5 @@
 import { Message, SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+import { CommandCategory } from '../../types/Command.js';
 
 export const data = {
   name: 'ping',

@@ -19,7 +19,7 @@ import {
 } from '@discordjs/voice';
 
 import play from 'play-dl';
-import { CommandCategory } from '../../types/Command';
+
 
 // Active music sessions
 const musicSessions = new Map<string, {

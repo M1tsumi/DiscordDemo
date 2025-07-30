@@ -76,5 +76,5 @@ else
     fi
     
     # Start in production mode
-    npm start
+    npm run start:linux
 fi 

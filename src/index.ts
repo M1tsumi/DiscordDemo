@@ -99,110 +99,176 @@ client.on('messageCreate', async (message) => {
 client.on('voiceStateUpdate', async (oldState, newState) => {
   // User joined a voice channel
   if (!oldState.channelId && newState.channelId) {
-    levelingService.trackVoiceJoin(newState.member!.id, newState.guild.id);
+    console.log(`🎤 ${newState.member?.displayName} joined voice channel: ${newState.channel?.name}`);
   }
   
   // User left a voice channel
   if (oldState.channelId && !newState.channelId) {
-    const result = levelingService.trackVoiceLeave(oldState.member!.id);
-    
-    // Optional: Show voice XP gained
-    if (result.xpGained > 0) {
-      const embed = new EmbedBuilder()
-        .setDescription(`🎤 **${oldState.member!.displayName}** gained **${result.xpGained} XP** from voice activity!`)
-        .setColor(0x3498db)
-        .setFooter({ text: `Level ${result.profile!.level} • ${result.profile!.xp} total XP` });
-      
-      // Try to send to a text channel in the same guild
-      const textChannel = oldState.guild.channels.cache.find(channel => 
-        channel.type === 0 && channel.permissionsFor(client.user!)?.has('SendMessages')
-      ) as any;
-      
-      if (textChannel) {
-        const xpMessage = await textChannel.send({ embeds: [embed] });
-        setTimeout(() => {
-          xpMessage.delete().catch(() => {});
-        }, 5000);
-      }
-    }
+    console.log(`👋 ${oldState.member?.displayName} left voice channel: ${oldState.channel?.name}`);
   }
 });
 
-// Periodic voice XP updates (every 5 minutes)
-setInterval(() => {
-  levelingService.updateVoiceXP();
-}, 5 * 60 * 1000); // 5 minutes
-
-// Handle slash commands and button interactions
+// Handle slash commands
 client.on('interactionCreate', async (interaction) => {
-  if (interaction.isChatInputCommand()) {
+  if (!interaction.isChatInputCommand()) return;
+
+  try {
     await commandHandler.handleSlashCommand(interaction);
-  } else if (interaction.isButton()) {
-          // Handle copy translation button
-      if (interaction.customId.startsWith('copy_translation_')) {
-        const { handleCopyTranslation } = await import('./commands/Utility/translate.js');
-        await handleCopyTranslation(interaction);
-        return;
-      }
-      // Handle button interactions
-      if (interaction.customId.startsWith('poll_')) {
-        const { handlePollInteraction } = await import('./commands/Fun/poll.js');
-        await handlePollInteraction(interaction);
-      }
-      // Handle tic-tac-toe button interactions
-      else if (interaction.customId.startsWith('ttt_')) {
-        const { handleTicTacToeInteraction } = await import('./commands/Games/tictactoe.js');
-        await handleTicTacToeInteraction(interaction);
-      }
-      // Handle admin panel interactions
-      else if (interaction.customId.startsWith('admin_')) {
-        const { handleAdminInteraction } = await import('./commands/Utility/adminset.js');
-        await handleAdminInteraction(interaction);
-      }
-      // Handle would you rather interactions
-      else if (interaction.customId.startsWith('wyr_')) {
-        const { handleWYRInteraction } = await import('./commands/Fun/wouldyourather.js');
-        await handleWYRInteraction(interaction);
-      }
-      // Handle hangman interactions
-      else if (interaction.customId.startsWith('hangman_')) {
-        const { handleHangmanInteraction } = await import('./commands/Games/hangman.js');
-        await handleHangmanInteraction(interaction);
-      }
-    // Removed RPS and Guess command handlers
-  } else if (interaction.isStringSelectMenu()) {
-    try {
-      // Handle translate language selection
-      if (interaction.customId === 'translate_lang') {
-        const { handleTranslateInteraction } = await import('./commands/Utility/translate.js');
-        return await handleTranslateInteraction(interaction);
-      }
-      // Handle help category selection
-      else if (interaction.customId === 'help_category') {
-        const { handleHelpCategoryInteraction } = await import('./commands/General/help.js');
-        return await handleHelpCategoryInteraction(interaction);
-      }
-      // Handle character creation
-      else if (interaction.customId === 'create_character') {
-        const { handleCreateCharacterInteraction } = await import('./commands/RPG/create.js');
-        return await handleCreateCharacterInteraction(interaction);
-      }
-      // Handle training stat selection
-      else if (interaction.customId === 'train_stat') {
-        const { handleTrainStatInteraction } = await import('./commands/RPG/train.js');
-        return await handleTrainStatInteraction(interaction);
-      }
-      // Add other select menu handlers here as else-if blocks
-    } catch (error) {
-      console.error('Select menu interaction error:', error);
-      if (!interaction.replied) {
-        await interaction.reply({
-          content: '❌ Failed to process this interaction',
-          ephemeral: true
-        });
-      }
-    }
+  } catch (error) {
+    console.error('Error handling slash command:', error);
   }
 });
 
-client.login(process.env['DISCORD_TOKEN']);
+// Handle button interactions
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isButton()) return;
+
+  try {
+    // Handle copy translation button
+    if (interaction.customId.startsWith('copy_translation_')) {
+      const { handleCopyTranslation } = await import('./commands/Utility/translate.js');
+      await handleCopyTranslation(interaction);
+      return;
+    }
+
+    // Handle poll interactions
+    if (interaction.customId.startsWith('poll_')) {
+      const { handlePollInteraction } = await import('./commands/Fun/poll.js');
+      await handlePollInteraction(interaction);
+      return;
+    }
+
+    // Handle tic-tac-toe interactions
+    if (interaction.customId.startsWith('tictactoe_')) {
+      const { handleTicTacToeInteraction } = await import('./commands/Games/tictactoe.js');
+      await handleTicTacToeInteraction(interaction);
+      return;
+    }
+
+    // Handle admin settings interactions
+    if (interaction.customId.startsWith('admin_')) {
+      const { handleAdminInteraction } = await import('./commands/Utility/adminset.js');
+      await handleAdminInteraction(interaction);
+      return;
+    }
+
+    // Handle would you rather interactions
+    if (interaction.customId.startsWith('wyr_')) {
+      const { handleWYRInteraction } = await import('./commands/Fun/wouldyourather.js');
+      await handleWYRInteraction(interaction);
+      return;
+    }
+
+    // Handle hangman interactions
+    if (interaction.customId.startsWith('hangman_')) {
+      const { handleHangmanInteraction } = await import('./commands/Games/hangman.js');
+      await handleHangmanInteraction(interaction);
+      return;
+    }
+
+    // Handle translate interactions
+    if (interaction.customId.startsWith('translate_')) {
+      const { handleTranslateInteraction } = await import('./commands/Utility/translate.js');
+      await handleTranslateInteraction(interaction);
+      return;
+    }
+
+    // Handle help category interactions
+    if (interaction.customId.startsWith('help_category_')) {
+      const { handleHelpCategoryInteraction } = await import('./commands/General/help.js');
+      await handleHelpCategoryInteraction(interaction);
+      return;
+    }
+
+    // Handle create character interactions
+    if (interaction.customId.startsWith('create_character_')) {
+      const { handleCreateCharacterInteraction } = await import('./commands/RPG/create.js');
+      await handleCreateCharacterInteraction(interaction);
+      return;
+    }
+
+    // Handle train stat interactions
+    if (interaction.customId.startsWith('train_stat_')) {
+      const { handleTrainStatInteraction } = await import('./commands/RPG/train.js');
+      await handleTrainStatInteraction(interaction);
+      return;
+    }
+
+  } catch (error) {
+    console.error('Error handling button interaction:', error);
+    await interaction.reply({ content: '❌ An error occurred while processing your interaction.', ephemeral: true });
+  }
+});
+
+// Handle string select menu interactions
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isStringSelectMenu()) return;
+
+  try {
+    // Handle help category selection
+    if (interaction.customId === 'help_category_select') {
+      const { handleHelpCategoryInteraction } = await import('./commands/General/help.js');
+      await handleHelpCategoryInteraction(interaction);
+      return;
+    }
+
+    // Handle create character class selection
+    if (interaction.customId === 'create_character_class') {
+      const { handleCreateCharacterInteraction } = await import('./commands/RPG/create.js');
+      await handleCreateCharacterInteraction(interaction);
+      return;
+    }
+
+    // Handle train stat selection
+    if (interaction.customId === 'train_stat_select') {
+      const { handleTrainStatInteraction } = await import('./commands/RPG/train.js');
+      await handleTrainStatInteraction(interaction);
+      return;
+    }
+
+  } catch (error) {
+    console.error('Error handling string select menu interaction:', error);
+    await interaction.reply({ content: '❌ An error occurred while processing your selection.', ephemeral: true });
+  }
+});
+
+// Handle modal submissions
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isModalSubmit()) return;
+
+  try {
+    // Handle admin settings modal
+    if (interaction.customId === 'admin_settings_modal') {
+      const { handleAdminInteraction } = await import('./commands/Utility/adminset.js');
+      await handleAdminInteraction(interaction);
+      return;
+    }
+
+  } catch (error) {
+    console.error('Error handling modal submission:', error);
+    await interaction.reply({ content: '❌ An error occurred while processing your submission.', ephemeral: true });
+  }
+});
+
+// Error handling
+client.on('error', (error) => {
+  console.error('Discord client error:', error);
+});
+
+process.on('unhandledRejection', (error) => {
+  console.error('Unhandled promise rejection:', error);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught exception:', error);
+  process.exit(1);
+});
+
+// Start the bot
+const token = process.env.DISCORD_TOKEN;
+if (!token) {
+  console.error('❌ DISCORD_TOKEN is not set in environment variables!');
+  process.exit(1);
+}
+
+client.login(token);

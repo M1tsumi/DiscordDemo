@@ -12,7 +12,7 @@ import {
   EmbedField
 } from 'discord.js';
 import axios from 'axios';
-import { CommandCategory } from '../../types/Command';
+
 
 const LANGUAGES = [
   { code: 'en', name: 'English', emoji: '🇬🇧', native: 'English' },

@@ -1,5 +1,5 @@
-import { Message, SlashCommandBuilder, ChatInputCommandInteraction, TextChannel, PermissionFlagsBits } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+
+
 
 export const data = {
   name: 'purge',

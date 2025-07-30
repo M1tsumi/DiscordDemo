@@ -1,5 +1,5 @@
-import { Client, Collection, Message, ChatInputCommandInteraction } from 'discord.js';
-import { Command, CommandCategory } from '../types/Command.js';
+
+
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -41,11 +41,11 @@ export class CommandHandler {
     console.log(`🔍 Loading commands from: ${commandsPath} (${isProduction ? 'production' : 'development'} mode)`);
     console.log(`📁 Current directory: ${__dirname}`);
     console.log(`🔧 Is production: ${isProduction}`);
-    await this.loadCommandsRecursive(commandsPath);
+    await this.loadCommandsRecursive(commandsPath, __dirname);
     console.log(`📦 Loaded ${this.commands.size} commands total`);
   }
 
-  private async loadCommandsRecursive(dirPath: string): Promise<void> {
+  private async loadCommandsRecursive(dirPath: string, baseDirname: string): Promise<void> {
     try {
       const items = fs.readdirSync(dirPath);
       
@@ -55,16 +55,12 @@ export class CommandHandler {
         
         if (stat.isDirectory()) {
           // Recursively load commands from subdirectories
-          await this.loadCommandsRecursive(fullPath);
+          await this.loadCommandsRecursive(fullPath, baseDirname);
         } else if (item.endsWith('.js') || item.endsWith('.ts')) {
           let relativePath: string;
           try {
-            // Get __dirname for this context
-            const __filename = fileURLToPath(import.meta.url);
-            const __dirname = path.dirname(__filename);
-            
-            // Use relative path import for better compatibility with ts-node
-            relativePath = path.relative(path.resolve(__dirname, '../'), fullPath);
+            // Use the passed baseDirname instead of recalculating
+            relativePath = path.relative(path.resolve(baseDirname, '../'), fullPath);
             const importPath = `../${relativePath.replace(/\\/g, '/')}`;
             const commandModule = await import(importPath);
             
@@ -85,7 +81,7 @@ export class CommandHandler {
                 }
               }
 
-              console.log(`✅ Loaded command: ${command.data.name} (${path.relative(path.resolve(__dirname, '../commands'), fullPath)})`);
+              console.log(`✅ Loaded command: ${command.data.name} (${path.relative(path.resolve(baseDirname, '../commands'), fullPath)})`);
             } else {
               console.warn(`⚠️  Command ${item} is missing required data or execute function`);
             }

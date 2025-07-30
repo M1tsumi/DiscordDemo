@@ -1,19 +1,21 @@
+
+
 import { Message, EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
 import { CommandCategory } from '../../types/Command.js';
 import os from 'os';
 
 export const data = {
   name: 'botstats',
-  description: 'Display detailed bot statistics and information.',
-  aliases: ['stats', 'botinfo', 'info'],
+  description: 'Display bot statistics and system information.',
+  aliases: ['stats', 'botinfo'],
   category: CommandCategory.GENERAL,
   usage: '!botstats',
-  cooldown: 5
+  cooldown: 10
 };
 
 export const slashData = new SlashCommandBuilder()
   .setName('botstats')
-  .setDescription('Display detailed bot statistics and information.');
+  .setDescription('Display bot statistics and system information.');
 
 function formatUptime(uptime: number): string {
   const days = Math.floor(uptime / 86400);
@@ -21,24 +23,26 @@ function formatUptime(uptime: number): string {
   const minutes = Math.floor((uptime % 3600) / 60);
   const seconds = Math.floor(uptime % 60);
 
-  const parts = [];
-  if (days > 0) parts.push(`${days}d`);
-  if (hours > 0) parts.push(`${hours}h`);
-  if (minutes > 0) parts.push(`${minutes}m`);
-  if (seconds > 0) parts.push(`${seconds}s`);
-
-  return parts.join(' ') || '0s';
+  if (days > 0) {
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  } else if (hours > 0) {
+    return `${hours}h ${minutes}m ${seconds}s`;
+  } else if (minutes > 0) {
+    return `${minutes}m ${seconds}s`;
+  } else {
+    return `${seconds}s`;
+  }
 }
 
 function formatBytes(bytes: number): string {
-  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
   if (bytes === 0) return '0 B';
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
   return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
 }
 
 export async function execute(message: Message) {
-  const { commandHandler } = await import('../../index');
+  const { commandHandler } = await import('../../index.ts');
   const client = message.client;
 
   // Get system info
@@ -93,7 +97,7 @@ export async function execute(message: Message) {
 }
 
 export async function executeSlash(interaction: ChatInputCommandInteraction) {
-  const { commandHandler } = await import('../../index');
+  const { commandHandler } = await import('../../index.ts');
   const client = interaction.client;
 
   // Get system info

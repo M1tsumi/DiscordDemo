@@ -1,5 +1,5 @@
-import { Message, EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } from 'discord.js';
-import { CommandCategory } from '../../types/Command.js';
+
+
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';

@@ -1,5 +1,5 @@
-import { Message, EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+
+
 
 export const data = {
   name: 'raid',

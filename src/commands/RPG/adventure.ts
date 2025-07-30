@@ -1,5 +1,5 @@
-import { Message, EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+
+
 import { RPGService } from '../../services/rpgService';
 
 export const data = {

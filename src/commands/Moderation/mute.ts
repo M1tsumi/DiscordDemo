@@ -1,5 +1,5 @@
-import { Message } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+
+
 
 export const data = {
   name: 'mute',

@@ -1,5 +1,5 @@
-import { Message, EmbedBuilder } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+
+
 const fetch = require('node-fetch');
 
 export const data = {

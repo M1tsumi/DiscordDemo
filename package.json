@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "nodemon --watch src --exec \"node --loader ts-node/esm src/index.ts\"",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node --experimental-specifier-resolution=node dist/index.js",
+    "start:prod": "node --experimental-specifier-resolution=node dist/index.js",
+    "start:linux": "node --experimental-specifier-resolution=node --experimental-modules dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

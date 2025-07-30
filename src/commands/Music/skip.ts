@@ -1,6 +1,6 @@
 // src/commands/skip.ts
-import { Message, EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+
+
 import { musicSessions } from './play';
 
 export const data = {

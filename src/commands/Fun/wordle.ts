@@ -1,5 +1,5 @@
-import { Message, EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+
+
 
 // Wordle game with 575+ 5-letter words and improved randomization
 

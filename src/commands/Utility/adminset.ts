@@ -13,7 +13,7 @@ import {
   Guild,
   Role
 } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+
 import { AdminService } from '../../services/adminService';
 
 export const data = {
