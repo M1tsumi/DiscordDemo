@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 export interface UserProfile {
   id: string;
@@ -20,6 +21,10 @@ export interface LevelInfo {
   title: string;
   color: number;
 }
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const DATA_PATH = path.join(__dirname, '../../data/levels.json');
 const LEVELS_PATH = path.join(__dirname, '../../data/levelInfo.json');

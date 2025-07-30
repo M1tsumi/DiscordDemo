@@ -1,18 +1,26 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 export interface ServerSettings {
   guildId: string;
   prefix: string;
-  modLogChannel?: string;
-  welcomeChannel?: string;
-  goodbyeChannel?: string;
-  autoRole?: string;
-  muteRole?: string;
   enableLeveling: boolean;
+  enableRPG: boolean;
+  enableMusic: boolean;
+  enableModeration: boolean;
+  welcomeMessage: string;
+  autoRole: string | null;
+  logChannel: string | null;
+  modRole: string | null;
+  adminRole: string | null;
   enableWelcome: boolean;
   enableGoodbye: boolean;
 }
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const SETTINGS_PATH = path.join(__dirname, '../../data/serverSettings.json');
 
@@ -55,6 +63,14 @@ export class SettingsService {
         guildId,
         prefix: '!',
         enableLeveling: true,
+        enableRPG: true,
+        enableMusic: true,
+        enableModeration: true,
+        welcomeMessage: 'Welcome to the server!',
+        autoRole: null,
+        logChannel: null,
+        modRole: null,
+        adminRole: null,
         enableWelcome: false,
         enableGoodbye: false
       };

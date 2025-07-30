@@ -1,11 +1,11 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import { config } from 'dotenv';
-import { CommandHandler } from './services/commandHandler';
-import { LevelingService } from './services/levelingService';
-import { SettingsService } from './services/settingsService';
-import { AdminService } from './services/adminService';
-import { RPGService } from './services/rpgService';
-import { initializePlayDL } from './utils/playDLInit';
+import { CommandHandler } from './services/commandHandler.js';
+import { LevelingService } from './services/levelingService.js';
+import { SettingsService } from './services/settingsService.js';
+import { AdminService } from './services/adminService.js';
+import { RPGService } from './services/rpgService.js';
+import { initializePlayDL } from './utils/playDLInit.js';
 import { EmbedBuilder } from 'discord.js';
 
 config();
@@ -70,15 +70,15 @@ client.on('messageCreate', async (message) => {
   }
 
   // Check for hangman game input
-  const { handleHangmanMessage } = await import('./commands/Games/hangman');
+  const { handleHangmanMessage } = await import('./commands/Games/hangman.js');
   const hangmanHandled = await handleHangmanMessage(message);
   
   // Check for trivia answer input
-  const { handleTriviaAnswer } = await import('./commands/Fun/trivia');
+  const { handleTriviaAnswer } = await import('./commands/Fun/trivia.js');
   const triviaHandled = await handleTriviaAnswer(message);
   
   // Check for wordle answer input
-  const { handleWordleAnswer } = await import('./commands/Fun/wordle');
+  const { handleWordleAnswer } = await import('./commands/Fun/wordle.js');
   const wordleHandled = await handleWordleAnswer(message);
 
   // If any game handled the message, don't process it as a command
@@ -138,58 +138,58 @@ client.on('interactionCreate', async (interaction) => {
   if (interaction.isChatInputCommand()) {
     await commandHandler.handleSlashCommand(interaction);
   } else if (interaction.isButton()) {
-    // Handle copy translation button
-    if (interaction.customId.startsWith('copy_translation_')) {
-      const { handleCopyTranslation } = await import('./commands/Utility/translate');
-      await handleCopyTranslation(interaction);
-      return;
-    }
-    // Handle button interactions
-    if (interaction.customId.startsWith('poll_')) {
-      const { handlePollInteraction } = await import('./commands/Fun/poll');
-      await handlePollInteraction(interaction);
-    }
-    // Handle tic-tac-toe button interactions
-    else if (interaction.customId.startsWith('ttt_')) {
-      const { handleTicTacToeInteraction } = await import('./commands/Games/tictactoe');
-      await handleTicTacToeInteraction(interaction);
-    }
-    // Handle admin panel interactions
-    else if (interaction.customId.startsWith('admin_')) {
-      const { handleAdminInteraction } = await import('./commands/Utility/adminset');
-      await handleAdminInteraction(interaction);
-    }
-    // Handle would you rather interactions
-    else if (interaction.customId.startsWith('wyr_')) {
-      const { handleWYRInteraction } = await import('./commands/Fun/wouldyourather');
-      await handleWYRInteraction(interaction);
-    }
-    // Handle hangman interactions
-    else if (interaction.customId.startsWith('hangman_')) {
-      const { handleHangmanInteraction } = await import('./commands/Games/hangman');
-      await handleHangmanInteraction(interaction);
-    }
+          // Handle copy translation button
+      if (interaction.customId.startsWith('copy_translation_')) {
+        const { handleCopyTranslation } = await import('./commands/Utility/translate.js');
+        await handleCopyTranslation(interaction);
+        return;
+      }
+      // Handle button interactions
+      if (interaction.customId.startsWith('poll_')) {
+        const { handlePollInteraction } = await import('./commands/Fun/poll.js');
+        await handlePollInteraction(interaction);
+      }
+      // Handle tic-tac-toe button interactions
+      else if (interaction.customId.startsWith('ttt_')) {
+        const { handleTicTacToeInteraction } = await import('./commands/Games/tictactoe.js');
+        await handleTicTacToeInteraction(interaction);
+      }
+      // Handle admin panel interactions
+      else if (interaction.customId.startsWith('admin_')) {
+        const { handleAdminInteraction } = await import('./commands/Utility/adminset.js');
+        await handleAdminInteraction(interaction);
+      }
+      // Handle would you rather interactions
+      else if (interaction.customId.startsWith('wyr_')) {
+        const { handleWYRInteraction } = await import('./commands/Fun/wouldyourather.js');
+        await handleWYRInteraction(interaction);
+      }
+      // Handle hangman interactions
+      else if (interaction.customId.startsWith('hangman_')) {
+        const { handleHangmanInteraction } = await import('./commands/Games/hangman.js');
+        await handleHangmanInteraction(interaction);
+      }
     // Removed RPS and Guess command handlers
   } else if (interaction.isStringSelectMenu()) {
     try {
       // Handle translate language selection
       if (interaction.customId === 'translate_lang') {
-        const { handleTranslateInteraction } = await import('./commands/Utility/translate');
+        const { handleTranslateInteraction } = await import('./commands/Utility/translate.js');
         return await handleTranslateInteraction(interaction);
       }
       // Handle help category selection
       else if (interaction.customId === 'help_category') {
-        const { handleHelpCategoryInteraction } = await import('./commands/General/help');
+        const { handleHelpCategoryInteraction } = await import('./commands/General/help.js');
         return await handleHelpCategoryInteraction(interaction);
       }
       // Handle character creation
       else if (interaction.customId === 'create_character') {
-        const { handleCreateCharacterInteraction } = await import('./commands/RPG/create');
+        const { handleCreateCharacterInteraction } = await import('./commands/RPG/create.js');
         return await handleCreateCharacterInteraction(interaction);
       }
       // Handle training stat selection
       else if (interaction.customId === 'train_stat') {
-        const { handleTrainStatInteraction } = await import('./commands/RPG/train');
+        const { handleTrainStatInteraction } = await import('./commands/RPG/train.js');
         return await handleTrainStatInteraction(interaction);
       }
       // Add other select menu handlers here as else-if blocks

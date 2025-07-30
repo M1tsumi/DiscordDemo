@@ -1,5 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const DATA_PATH = path.join(__dirname, '../../data/rpgCharacters.json');
 
 export interface RPGCharacter {
   id: string;
@@ -188,8 +195,6 @@ export interface Enemy {
   xpReward: number;
   goldReward: number;
 }
-
-const DATA_PATH = path.join(__dirname, '../../data/rpgCharacters.json');
 
 export class RPGService {
   private characters: Record<string, RPGCharacter> = {};

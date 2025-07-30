@@ -1,7 +1,8 @@
 import { Client, Collection, Message, ChatInputCommandInteraction } from 'discord.js';
-import { Command, CommandCategory } from '../types/Command';
+import { Command, CommandCategory } from '../types/Command.js';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 export class CommandHandler {
   private client: Client;
@@ -19,7 +20,9 @@ export class CommandHandler {
   }
 
   async loadCommands(): Promise<void> {
-    // Use a more reliable path resolution that works with ts-node
+    // Use a more reliable path resolution that works with ES modules
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
     const commandsPath = path.resolve(__dirname, '../commands');
     console.log(`🔍 Loading commands from: ${commandsPath}`);
     await this.loadCommandsRecursive(commandsPath);
@@ -39,7 +42,9 @@ export class CommandHandler {
           await this.loadCommandsRecursive(fullPath);
         } else if (item.endsWith('.ts')) {
           try {
-            const commandModule = await import(fullPath);
+            // Convert file path to URL for ES module import
+            const fileUrl = `file://${fullPath}`;
+            const commandModule = await import(fileUrl);
             
             if (commandModule.data && commandModule.execute) {
               const command: Command = {
