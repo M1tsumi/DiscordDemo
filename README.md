@@ -137,9 +137,15 @@ This opens a beautiful web interface at `http://localhost:3000` where you can:
 #### Linux/Mac
 1. **Download and extract** the Discord bot files
 2. **Open terminal** in the bot directory
-3. **Run** `chmod +x setup.sh && ./setup.sh`
-4. **Follow the prompts** to configure your Discord bot
-5. **Start your bot** with `npm start`
+3. **Make setup script executable**: `chmod +x setup.sh`
+4. **Run the setup script**: `./setup.sh`
+5. **Edit the .env file** with your Discord bot token
+6. **Start your bot** with `npm start`
+
+**Troubleshooting:**
+- If you get permission errors, try: `chmod +x setup.sh`
+- If npm install fails, try: `sudo apt update && sudo apt install build-essential`
+- For voice features, you may need: `sudo apt install ffmpeg`
 
 ### Manual Setup
 
