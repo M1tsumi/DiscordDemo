@@ -8,7 +8,17 @@ import { RPGService } from './services/rpgService.js';
 import { initializePlayDL } from './utils/playDLInit.js';
 import { EmbedBuilder } from 'discord.js';
 
+// Load environment variables
 config();
+
+// Validate environment configuration
+const token = process.env.DISCORD_TOKEN;
+if (!token || token === 'your_discord_bot_token_here') {
+  console.error('❌ DISCORD_TOKEN is not set or is using placeholder value!');
+  console.error('Please edit your .env file and set your actual Discord bot token.');
+  console.error('Get your token from: https://discord.com/developers/applications');
+  process.exit(1);
+}
 
 const client = new Client({
   intents: [
@@ -278,11 +288,43 @@ process.on('uncaughtException', (error) => {
   process.exit(1);
 });
 
-// Start the bot
-const token = process.env.DISCORD_TOKEN;
-if (!token) {
-  console.error('❌ DISCORD_TOKEN is not set in environment variables!');
+// Start the bot with better error handling
+client.login(token).catch((error) => {
+  console.error('❌ Failed to login to Discord:', error.message);
+  
+  if (error.message.includes('disallowed intents')) {
+    console.error('');
+    console.error('🔧 SOLUTION: Enable Required Intents in Discord Developer Portal');
+    console.error('===========================================');
+    console.error('1. Go to https://discord.com/developers/applications');
+    console.error('2. Select your bot application');
+    console.error('3. Go to "Bot" section in the left sidebar');
+    console.error('4. Scroll down to "Privileged Gateway Intents"');
+    console.error('5. Enable ALL THREE intents:');
+    console.error('   ✅ PRESENCE INTENT');
+    console.error('   ✅ SERVER MEMBERS INTENT');
+    console.error('   ✅ MESSAGE CONTENT INTENT');
+    console.error('6. Click "Save Changes"');
+    console.error('7. Restart your bot');
+    console.error('');
+  } else if (error.message.includes('Invalid token')) {
+    console.error('');
+    console.error('🔧 SOLUTION: Check Your Bot Token');
+    console.error('===========================================');
+    console.error('1. Verify your token in the .env file');
+    console.error('2. Get a fresh token from: https://discord.com/developers/applications');
+    console.error('3. Make sure the token is copied correctly (no extra spaces)');
+    console.error('');
+  } else {
+    console.error('');
+    console.error('🔧 GENERAL TROUBLESHOOTING');
+    console.error('===========================================');
+    console.error('1. Check your internet connection');
+    console.error('2. Verify your bot token is correct');
+    console.error('3. Make sure your bot is invited to servers with proper permissions');
+    console.error('4. Check Discord status: https://status.discord.com/');
+    console.error('');
+  }
+  
   process.exit(1);
-}
-
-client.login(token);
+});

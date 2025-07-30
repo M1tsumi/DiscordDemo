@@ -95,6 +95,21 @@ else
     echo "✓ .env file already exists"
 fi
 
+# Validate .env file
+echo ""
+echo "Validating environment configuration..."
+if [ -f ".env" ]; then
+    if grep -q "your_discord_bot_token_here" .env; then
+        echo "⚠️  WARNING: You still need to set your Discord bot token in .env file!"
+        echo "   Edit .env and replace 'your_discord_bot_token_here' with your actual token"
+    else
+        echo "✓ .env file appears to be configured"
+    fi
+else
+    echo "ERROR: .env file not found!"
+    exit 1
+fi
+
 # Create data directory
 echo ""
 echo "Setting up data directory..."
@@ -109,7 +124,9 @@ fi
 echo ""
 echo "Setting file permissions..."
 chmod +x setup.sh
-chmod +x launcher.js
+if [ -f "launcher.js" ]; then
+    chmod +x launcher.js
+fi
 echo "✓ Set executable permissions"
 
 # Build the project
@@ -153,17 +170,34 @@ echo "==========================================="
 echo "SETUP COMPLETE!"
 echo "==========================================="
 echo ""
-echo "Next steps:"
-echo "1. Edit .env file with your Discord bot token"
-echo "2. Run 'npm start' to start the bot (production mode)"
-echo "3. Run 'npm run dev' for development mode"
-echo "4. For Linux-specific issues, try 'npm run start:linux'"
+echo "🔧 CRITICAL: Discord Bot Intents Configuration"
+echo "==========================================="
+echo "To fix the 'disallowed intents' error, you MUST enable these intents in your Discord application:"
 echo ""
-echo "Troubleshooting:"
+echo "1. Go to https://discord.com/developers/applications"
+echo "2. Select your bot application"
+echo "3. Go to 'Bot' section in the left sidebar"
+echo "4. Scroll down to 'Privileged Gateway Intents'"
+echo "5. Enable ALL THREE intents:"
+echo "   ✅ PRESENCE INTENT"
+echo "   ✅ SERVER MEMBERS INTENT" 
+echo "   ✅ MESSAGE CONTENT INTENT"
+echo "6. Click 'Save Changes'"
+echo ""
+echo "📝 Next steps:"
+echo "1. Edit .env file with your Discord bot token"
+echo "2. Enable the required intents in Discord Developer Portal"
+echo "3. Run 'npm start' to start the bot (production mode)"
+echo "4. Run 'npm run dev' for development mode"
+echo "5. For Linux-specific issues, try 'npm run start:linux'"
+echo ""
+echo "🛠️  Troubleshooting:"
 echo "- If you get permission errors, try: chmod +x setup.sh"
 echo "- If npm install fails, try: sudo apt update && sudo apt install build-essential"
 echo "- For voice features, you may need: sudo apt install ffmpeg"
 echo "- If TypeScript files aren't loading, check file permissions"
+echo "- If you get 'disallowed intents' error, make sure to enable the intents above"
+echo "- Run './troubleshoot.sh' for comprehensive diagnostics"
 echo ""
 echo "For help, contact @quefep on Discord"
 echo "" 
