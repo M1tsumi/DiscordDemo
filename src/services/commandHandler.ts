@@ -30,7 +30,17 @@ export class CommandHandler {
       ? path.resolve(__dirname, '../commands')  // dist/services -> dist/commands
       : path.resolve(__dirname, '../commands'); // src/services -> src/commands
     
+    // Ensure the path exists
+    if (!fs.existsSync(commandsPath)) {
+      console.error(`❌ Commands directory not found: ${commandsPath}`);
+      console.error(`📁 Current directory: ${__dirname}`);
+      console.error(`🔧 Is production: ${isProduction}`);
+      return;
+    }
+    
     console.log(`🔍 Loading commands from: ${commandsPath} (${isProduction ? 'production' : 'development'} mode)`);
+    console.log(`📁 Current directory: ${__dirname}`);
+    console.log(`🔧 Is production: ${isProduction}`);
     await this.loadCommandsRecursive(commandsPath);
     console.log(`📦 Loaded ${this.commands.size} commands total`);
   }
@@ -47,10 +57,12 @@ export class CommandHandler {
           // Recursively load commands from subdirectories
           await this.loadCommandsRecursive(fullPath);
         } else if (item.endsWith('.js') || item.endsWith('.ts')) {
+          let relativePath: string;
           try {
-            // Convert file path to URL for ES module import
-            const fileUrl = `file://${fullPath}`;
-            const commandModule = await import(fileUrl);
+            // Use relative path import for better compatibility with ts-node
+            relativePath = path.relative(path.resolve(__dirname, '../'), fullPath);
+            const importPath = `../${relativePath.replace(/\\/g, '/')}`;
+            const commandModule = await import(importPath);
             
             if (commandModule.data && commandModule.execute) {
               const command: Command = {
@@ -75,6 +87,8 @@ export class CommandHandler {
             }
           } catch (error) {
             console.error(`❌ Failed to load command ${item}:`, error);
+            console.error(`   Path: ${fullPath}`);
+            console.error(`   Import path: ${relativePath ? relativePath.replace(/\\/g, '/') : 'undefined'}`);
           }
         }
       }
