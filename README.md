@@ -46,6 +46,11 @@
 
 **Upon download, run** `./setup.sh` in your terminal to automatically install and configure your Discord bot!
 
+**For Linux users experiencing "unknown file type" errors:**
+1. Make sure the script is executable: `chmod +x setup.sh`
+2. Run the setup: `./setup.sh`
+3. Use the Linux launcher: `./start-linux.sh` (production) or `./start-linux.sh dev` (development)
+
 ### 🎮 Bot Manager (Optional)
 After setup, you can use the web-based bot manager for easy configuration:
 
@@ -332,6 +337,19 @@ The Discord bot features a sophisticated XP system that rewards various activiti
 - Ensure the bot has voice state permissions
 - Check if users are actually in voice channels
 - Verify the voice tracking system is active
+
+**Linux "unknown file type" errors**
+- Make sure the script is executable: `chmod +x setup.sh`
+- Run the setup: `./setup.sh`
+- Use the Linux launcher: `./start-linux.sh` (production) or `./start-linux.sh dev` (development)
+- Check file permissions: `ls -la src/commands/`
+- Verify TypeScript compilation: `npm run build`
+
+**TypeScript files not loading**
+- Ensure ts-node is installed: `npm install -g ts-node`
+- Check tsconfig.json configuration
+- Verify file extensions (.ts vs .js) in command handler
+- Run in development mode: `npm run dev`
 
 ### Logs and Debugging
 Enable debug mode by setting the environment variable:

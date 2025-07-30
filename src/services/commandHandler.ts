@@ -23,8 +23,14 @@ export class CommandHandler {
     // Use a more reliable path resolution that works with ES modules
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    const commandsPath = path.resolve(__dirname, '../commands');
-    console.log(`🔍 Loading commands from: ${commandsPath}`);
+    
+    // Check if we're running in production (compiled) or development
+    const isProduction = __dirname.includes('dist');
+    const commandsPath = isProduction 
+      ? path.resolve(__dirname, '../commands')  // dist/services -> dist/commands
+      : path.resolve(__dirname, '../commands'); // src/services -> src/commands
+    
+    console.log(`🔍 Loading commands from: ${commandsPath} (${isProduction ? 'production' : 'development'} mode)`);
     await this.loadCommandsRecursive(commandsPath);
     console.log(`📦 Loaded ${this.commands.size} commands total`);
   }
@@ -40,7 +46,7 @@ export class CommandHandler {
         if (stat.isDirectory()) {
           // Recursively load commands from subdirectories
           await this.loadCommandsRecursive(fullPath);
-        } else if (item.endsWith('.ts')) {
+        } else if (item.endsWith('.js') || item.endsWith('.ts')) {
           try {
             // Convert file path to URL for ES module import
             const fileUrl = `file://${fullPath}`;

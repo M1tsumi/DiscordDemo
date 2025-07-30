@@ -41,6 +41,24 @@ fi
 
 echo "✓ npm $(npm -v) is installed"
 
+# Check for TypeScript files
+echo ""
+echo "Checking TypeScript files..."
+if [ ! -d "src/commands" ]; then
+    echo "ERROR: src/commands directory not found!"
+    echo "Please ensure you have the complete source code."
+    exit 1
+fi
+
+# Count TypeScript files
+TS_COUNT=$(find src/commands -name "*.ts" | wc -l)
+if [ "$TS_COUNT" -eq 0 ]; then
+    echo "WARNING: No TypeScript files found in src/commands/"
+    echo "This might indicate a problem with the source code."
+else
+    echo "✓ Found $TS_COUNT TypeScript command files"
+fi
+
 # Install dependencies
 echo ""
 echo "Installing dependencies..."
@@ -87,14 +105,46 @@ else
     echo "✓ Data directory already exists"
 fi
 
+# Set proper permissions for Linux
+echo ""
+echo "Setting file permissions..."
+chmod +x setup.sh
+chmod +x launcher.js
+echo "✓ Set executable permissions"
+
 # Build the project
 echo ""
 echo "Building project..."
 if npm run build; then
     echo "✓ Project built successfully"
+    
+    # Verify compiled files
+    JS_COUNT=$(find dist/commands -name "*.js" | wc -l)
+    if [ "$JS_COUNT" -gt 0 ]; then
+        echo "✓ Compiled $JS_COUNT JavaScript files"
+    else
+        echo "WARNING: No compiled JavaScript files found"
+    fi
 else
     echo "WARNING: Failed to build project"
     echo "You can still run the bot in development mode with 'npm run dev'"
+fi
+
+# Test command loading
+echo ""
+echo "Testing command loading..."
+if node -e "
+import('./dist/index.js').then(() => {
+  console.log('✓ Command loading test passed');
+}).catch(err => {
+  console.error('✗ Command loading test failed:', err.message);
+  process.exit(1);
+});
+" 2>/dev/null; then
+    echo "✓ Command loading test passed"
+else
+    echo "WARNING: Command loading test failed"
+    echo "This might indicate an issue with the TypeScript compilation"
 fi
 
 echo ""
@@ -111,6 +161,7 @@ echo "Troubleshooting:"
 echo "- If you get permission errors, try: chmod +x setup.sh"
 echo "- If npm install fails, try: sudo apt update && sudo apt install build-essential"
 echo "- For voice features, you may need: sudo apt install ffmpeg"
+echo "- If TypeScript files aren't loading, check file permissions"
 echo ""
 echo "For help, contact @quefep on Discord"
 echo "" 
