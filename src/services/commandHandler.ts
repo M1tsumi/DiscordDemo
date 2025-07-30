@@ -1,5 +1,7 @@
 
 
+import { Client, Collection, Message, ChatInputCommandInteraction } from 'discord.js';
+import { Command, CommandCategory } from '../types/Command.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -57,7 +59,7 @@ export class CommandHandler {
           // Recursively load commands from subdirectories
           await this.loadCommandsRecursive(fullPath, baseDirname);
         } else if (item.endsWith('.js') || item.endsWith('.ts')) {
-          let relativePath: string;
+          let relativePath: string = '';
           try {
             // Use the passed baseDirname instead of recalculating
             relativePath = path.relative(path.resolve(baseDirname, '../'), fullPath);

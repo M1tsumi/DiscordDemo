@@ -1,117 +1,83 @@
 
 
-import { RPGService } from '../../services/rpgService';
+import {
+  Message,
+  EmbedBuilder,
+  SlashCommandBuilder,
+  ChatInputCommandInteraction
+} from 'discord.js';
 
 export const data = {
   name: 'rest',
-  description: 'Rest to restore your HP, Mana, and Stamina.',
+  description: 'Rest to recover health and resources (Premium Feature)',
   aliases: ['sleep', 'heal'],
   category: CommandCategory.RPG,
   usage: '!rest',
-  cooldown: 0
+  cooldown: 300
 };
 
 export const slashData = new SlashCommandBuilder()
   .setName('rest')
-  .setDescription('Rest to restore your HP, Mana, and Stamina.');
+  .setDescription('Rest to recover health and resources (Premium Feature)');
 
-export async function execute(message: Message, args?: string[]) {
-  try {
-    const rpgService = new RPGService();
-    const character = rpgService.getCharacter(message.author.id);
-    
-    if (!character) {
-      const embed = new EmbedBuilder()
-        .setTitle('❌ Character Not Found!')
-        .setDescription('You need to create a character first! Use `!create` to get started.')
-        .setColor(0xe74c3c);
-      
-      await message.reply({ embeds: [embed] });
-      return;
-    }
+export async function execute(message: Message, args: string[]) {
+  const embed = new EmbedBuilder()
+    .setTitle('😴 **Rest System - Premium Feature**')
+    .setDescription(
+      `Currently the **Demo Bot** includes basic RPG features, but **Advanced Rest System** is a premium feature.\n\n` +
+      `**🎮 Demo RPG Features Available:**\n` +
+      `• Character creation and profiles\n` +
+      `• Basic training system\n` +
+      `• Daily rewards\n` +
+      `• Simple stat progression\n\n` +
+      `**💎 Premium Rest Features:**\n` +
+      `• Advanced healing and recovery\n` +
+      `• Rest bonuses and buffs\n` +
+      `• Inn system with upgrades\n` +
+      `• Sleep quality mechanics\n` +
+      `• Recovery potions and items\n` +
+      `• Rest-based skill improvements\n\n` +
+      `**💎 Contact quefep for details on the Premium Bot!**\n` +
+      `Get access to all premium features including advanced RPG systems, music, and more!`
+    )
+    .setColor(0x9b59b6)
+    .setThumbnail('https://cdn.discordapp.com/emojis/1234567890123456789.png')
+    .setTimestamp()
+    .setFooter({ 
+      text: 'Demo Bot - Try !create, !profile, !daily, !train for basic RPG features',
+      iconURL: message.client.user?.displayAvatarURL()
+    });
 
-    const result = rpgService.rest(message.author.id);
-    const embed = new EmbedBuilder()
-      .setTitle(result.success ? '😴 Rest Started!' : '❌ Rest Failed!')
-      .setDescription(result.message)
-      .setColor(result.success ? 0x2ecc71 : 0xe74c3c);
-    
-    if (result.success) {
-      embed.addFields([
-        { 
-          name: '⏰ Rest Duration', 
-          value: '2 minutes', 
-          inline: true 
-        },
-        {
-          name: '💖 Restoration',
-          value: 'Full HP, Mana, and Stamina',
-          inline: true
-        },
-        {
-          name: '⏳ Cooldown',
-          value: '1 hour between rests',
-          inline: true
-        }
-      ]);
-    }
-    
-    await message.reply({ embeds: [embed] });
-    
-  } catch (error) {
-    console.error('Error in rest command:', error);
-    await message.reply('❌ There was an error with your rest. Please try again later.');
-  }
+  await message.reply({ embeds: [embed] });
 }
 
 export async function executeSlash(interaction: ChatInputCommandInteraction) {
-  try {
-    const rpgService = new RPGService();
-    const character = rpgService.getCharacter(interaction.user.id);
-    
-    if (!character) {
-      const embed = new EmbedBuilder()
-        .setTitle('❌ Character Not Found!')
-        .setDescription('You need to create a character first! Use `/create` to get started.')
-        .setColor(0xe74c3c);
-      
-      await interaction.reply({ embeds: [embed], ephemeral: true });
-      return;
-    }
-
-    const result = rpgService.rest(interaction.user.id);
-    const embed = new EmbedBuilder()
-      .setTitle(result.success ? '😴 Rest Started!' : '❌ Rest Failed!')
-      .setDescription(result.message)
-      .setColor(result.success ? 0x2ecc71 : 0xe74c3c);
-    
-    if (result.success) {
-      embed.addFields([
-        { 
-          name: '⏰ Rest Duration', 
-          value: '2 minutes', 
-          inline: true 
-        },
-        {
-          name: '💖 Restoration',
-          value: 'Full HP, Mana, and Stamina',
-          inline: true
-        },
-        {
-          name: '⏳ Cooldown',
-          value: '1 hour between rests',
-          inline: true
-        }
-      ]);
-    }
-    
-    await interaction.reply({ embeds: [embed], ephemeral: true });
-    
-  } catch (error) {
-    console.error('Error in rest slash command:', error);
-    await interaction.reply({ 
-      content: '❌ There was an error with your rest. Please try again later.',
-      ephemeral: true 
+  const embed = new EmbedBuilder()
+    .setTitle('😴 **Rest System - Premium Feature**')
+    .setDescription(
+      `Currently the **Demo Bot** includes basic RPG features, but **Advanced Rest System** is a premium feature.\n\n` +
+      `**🎮 Demo RPG Features Available:**\n` +
+      `• Character creation and profiles\n` +
+      `• Basic training system\n` +
+      `• Daily rewards\n` +
+      `• Simple stat progression\n\n` +
+      `**💎 Premium Rest Features:**\n` +
+      `• Advanced healing and recovery\n` +
+      `• Rest bonuses and buffs\n` +
+      `• Inn system with upgrades\n` +
+      `• Sleep quality mechanics\n` +
+      `• Recovery potions and items\n` +
+      `• Rest-based skill improvements\n\n` +
+      `**💎 Contact quefep for details on the Premium Bot!**\n` +
+      `Get access to all premium features including advanced RPG systems, music, and more!`
+    )
+    .setColor(0x9b59b6)
+    .setThumbnail('https://cdn.discordapp.com/emojis/1234567890123456789.png')
+    .setTimestamp()
+    .setFooter({ 
+      text: 'Demo Bot - Try /create, /profile, /daily, /train for basic RPG features',
+      iconURL: interaction.client.user?.displayAvatarURL()
     });
-  }
+
+  await interaction.reply({ embeds: [embed], ephemeral: true });
 } 

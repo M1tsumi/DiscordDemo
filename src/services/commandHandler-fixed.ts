@@ -1,8 +1,8 @@
 import { Client, Collection, Message, ChatInputCommandInteraction } from 'discord.js';
-import type { Command, CommandCategory } from './src/types/Command.js';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { Command, CommandCategory } from '../types/Command.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 export class CommandHandler {
   private client: Client;
