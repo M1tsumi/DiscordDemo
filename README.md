@@ -2,6 +2,20 @@
 
 A feature-rich Discord bot with advanced leveling, RPG mechanics, music playback, and moderation tools. Built with TypeScript and Discord.js v14.
 
+<div align="center">
+
+[![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/a3tGyAwVRc)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Discord.js](https://img.shields.io/badge/Discord.js-14.0+-blue?style=for-the-badge&logo=discord&logoColor=white)](https://discord.js.org/)
+
+**💬 Need help? Join our Discord community!**  
+**🔗 https://discord.gg/a3tGyAwVRc**
+
+</div>
+
+---
+
 ## ✨ Features
 
 ### 🎵 **Music System - Discord Music Bot**
@@ -58,22 +72,22 @@ A feature-rich Discord bot with advanced leveling, RPG mechanics, music playback
 
 ---
 
-## 🚀 Installation - Discord Bot Setup
+## 🚀 Quick Start - Discord Bot Setup
 
 ### Prerequisites
 - Node.js 18.0.0 or higher
 - npm or yarn package manager
 - Discord Bot Token
 
-### Automatic Setup (Recommended)
+### 🪟 Windows Installation
 
-#### Windows
 1. **Download and extract** the Discord bot files
 2. **Double-click** `start-bot-manager.bat`
 3. **Follow the prompts** to configure your Discord bot
 4. **Start your bot** with `npm start`
 
-#### Linux/Mac
+### 🐧 Linux/Mac Installation
+
 1. **Download and extract** the Discord bot files
 2. **Open terminal** in the bot directory
 3. **Make setup script executable**: `chmod +x setup.sh`
@@ -331,6 +345,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
+<div align="center">
+
+**💬 Need help? Join our Discord community!**  
+**🔗 https://discord.gg/a3tGyAwVRc**
+
+[![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/a3tGyAwVRc)
+
+</div>
+
 - **Discord**: @quefep
 - **Issues**: GitHub Issues
 - **Documentation**: See README.md
@@ -342,3 +365,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 Stay updated with the latest features and bug fixes by checking our releases regularly.
 
 **Last Updated:** December 2024
+
+---
+
+<div align="center">
+
+**Developed by quefep! 🚀**
+
+[![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/a3tGyAwVRc)
+
+</div>
