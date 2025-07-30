@@ -31,6 +31,9 @@ echo
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo
 
+# Change to the directory where this script is located
+cd "$(dirname "$0")"
+
 # Check if we're in the right directory
 if [ ! -f "package.json" ]; then
     echo -e "${RED}❌ ERROR: package.json not found!${NC}"
@@ -152,9 +155,7 @@ echo ""
 echo -e "${BLUE}🔐 Setting file permissions...${NC}"
 chmod +x setup.sh
 chmod +x start-linux.sh
-if [ -f "launcher.js" ]; then
-    chmod +x launcher.js
-fi
+chmod +x troubleshoot.sh
 echo -e "${GREEN}✅ Set executable permissions${NC}"
 
 # Build the project
@@ -218,9 +219,8 @@ echo ""
 echo -e "${PURPLE}📝 Next steps:${NC}"
 echo -e "${CYAN}1. Edit .env file with your Discord bot token${NC}"
 echo -e "${CYAN}2. Enable the required intents in Discord Developer Portal${NC}"
-echo -e "${CYAN}3. Run 'npm start' to start the bot (production mode)${NC}"
-echo -e "${CYAN}4. Run 'npm run dev' for development mode${NC}"
-echo -e "${CYAN}5. For Linux-specific issues, try 'npm run start:linux'${NC}"
+echo -e "${CYAN}3. The bot will start automatically after setup${NC}"
+echo -e "${CYAN}4. For development mode, run 'npm run dev'${NC}"
 echo ""
 echo -e "${YELLOW}🛠️  Troubleshooting:${NC}"
 echo -e "${CYAN}- If you get permission errors, try: chmod +x setup.sh${NC}"
@@ -255,5 +255,17 @@ echo ""
 echo -e "${GREEN}Developed by quefep! 🚀${NC}"
 echo ""
 
-# Start the bot
+# Check if dist/index.js exists
+if [ ! -f "dist/index.js" ]; then
+    echo -e "${RED}❌ ERROR: dist/index.js not found!${NC}"
+    echo -e "${RED}Current directory: $(pwd)${NC}"
+    echo -e "${RED}Please make sure the project is built: npm run build${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}✅ Found dist/index.js in: $(pwd)${NC}"
+echo -e "${GREEN}🚀 Starting Discord Bot...${NC}"
+echo ""
+
+# Start the bot using npm start
 npm start 
