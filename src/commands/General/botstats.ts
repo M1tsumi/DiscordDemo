@@ -1,5 +1,5 @@
 import { Message, EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+import { CommandCategory } from '../../types/Command.js';
 import os from 'os';
 
 export const data = {
@@ -53,6 +53,10 @@ export async function execute(message: Message) {
   const totalChannels = client.channels.cache.size;
   const totalCommands = commandHandler.getCommands().size;
 
+  // Get package versions
+  const discordJSVersion = (await import('discord.js')).version;
+  const typescriptVersion = (await import('typescript')).version;
+
   const embed = new EmbedBuilder()
     .setTitle('🤖 Bot Statistics')
     .setThumbnail(client.user?.displayAvatarURL() || '')
@@ -75,7 +79,7 @@ export async function execute(message: Message) {
       },
       {
         name: '🔧 Technical Info',
-        value: `**Platform:** ${os.platform()} ${os.release()}\n**Discord.js:** v${require('discord.js').version}\n**TypeScript:** v${require('typescript').version}\n**Process ID:** ${process.pid}`,
+        value: `**Platform:** ${os.platform()} ${os.release()}\n**Discord.js:** v${discordJSVersion}\n**TypeScript:** v${typescriptVersion}\n**Process ID:** ${process.pid}`,
         inline: false
       }
     ])
@@ -104,6 +108,10 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
   const totalChannels = client.channels.cache.size;
   const totalCommands = commandHandler.getCommands().size;
 
+  // Get package versions
+  const discordJSVersion = (await import('discord.js')).version;
+  const typescriptVersion = (await import('typescript')).version;
+
   const embed = new EmbedBuilder()
     .setTitle('🤖 Bot Statistics')
     .setThumbnail(client.user?.displayAvatarURL() || '')
@@ -126,7 +134,7 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
       },
       {
         name: '🔧 Technical Info',
-        value: `**Platform:** ${os.platform()} ${os.release()}\n**Discord.js:** v${require('discord.js').version}\n**TypeScript:** v${require('typescript').version}\n**Process ID:** ${process.pid}`,
+        value: `**Platform:** ${os.platform()} ${os.release()}\n**Discord.js:** v${discordJSVersion}\n**TypeScript:** v${typescriptVersion}\n**Process ID:** ${process.pid}`,
         inline: false
       }
     ])
