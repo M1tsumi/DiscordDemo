@@ -37,53 +37,7 @@ if not exist "package.json" (
     exit /b 1
 )
 
-REM Check if Node.js is installed
-echo    Checking Node.js installation...
-node --version >nul 2>&1
-if errorlevel 1 (
-    echo    ERROR: Node.js is not installed or not in PATH!
-    echo.
-    echo    Please install Node.js from: https://nodejs.org/
-    echo    Make sure to select "Add to PATH" during installation
-    echo.
-    pause
-    exit /b 1
-)
-
-for /f "tokens=*" %%i in ('node --version') do set NODE_VERSION=%%i
-echo    Node.js %NODE_VERSION% is installed
-
-REM Check if npm is installed
-echo    Checking npm installation...
-npm --version >nul 2>&1
-if errorlevel 1 (
-    echo    ERROR: npm is not installed!
-    pause
-    exit /b 1
-)
-
-for /f "tokens=*" %%i in ('npm --version') do set NPM_VERSION=%%i
-echo    npm %NPM_VERSION% is installed
-
-REM Check for TypeScript files
-echo.
-echo    Checking TypeScript files...
-if not exist "src\commands" (
-    echo    ERROR: src\commands directory not found!
-    echo    Please ensure you have the complete source code.
-    pause
-    exit /b 1
-)
-
-REM Count TypeScript files
-set TS_COUNT=0
-for /r "src\commands" %%f in (*.ts) do set /a TS_COUNT+=1
-if %TS_COUNT% EQU 0 (
-    echo    WARNING: No TypeScript files found in src\commands\
-    echo    This might indicate a problem with the source code.
-) else (
-    echo    Found %TS_COUNT% TypeScript command files
-)
+echo    Found package.json - proceeding with setup...
 
 REM Install dependencies
 echo.
@@ -152,15 +106,6 @@ if errorlevel 1 (
     echo    You can still run the bot in development mode with 'npm run dev'
 ) else (
     echo    Project built successfully
-    
-    REM Verify compiled files
-    set JS_COUNT=0
-    for /r "dist\commands" %%f in (*.js) do set /a JS_COUNT+=1
-    if %JS_COUNT% GTR 0 (
-        echo    Compiled %JS_COUNT% JavaScript files
-    ) else (
-        echo    WARNING: No compiled JavaScript files found
-    )
 )
 
 echo.
@@ -227,7 +172,18 @@ echo    Found dist\index.js in: %CD%
 echo    Starting Discord Bot...
 echo.
 
-REM Start the bot using npm start
-npm start
+REM Start the bot using npm start and keep the window open
+echo    ================================================================
+echo    =                    BOT STARTING...                          =
+echo    ================================================================
+echo.
+echo    If the bot doesn't start or you see errors, check:
+echo    1. Your .env file has the correct Discord token
+echo    2. You've enabled the required Discord intents
+echo    3. Your bot has the correct permissions
+echo.
+echo    Press any key to start the bot...
+pause >nul
 
-pause 
+REM Start the bot and keep the window open
+cmd /k "npm start" 
