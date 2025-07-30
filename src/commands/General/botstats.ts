@@ -1,9 +1,23 @@
+import { 
+  Message, 
+  EmbedBuilder, 
+  SlashCommandBuilder, 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
+} from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
-
-import { Message, EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-import { CommandCategory } from '../../types/Command.js';
 import os from 'os';
-
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { Command } from '../../types/Command';
 export const data = {
   name: 'botstats',
   description: 'Display bot statistics and system information.',
@@ -42,7 +56,7 @@ function formatBytes(bytes: number): string {
 }
 
 export async function execute(message: Message) {
-  const { commandHandler } = await import('../../index.ts');
+  const { commandHandler } = await import('../../index');
   const client = message.client;
 
   // Get system info
@@ -97,7 +111,7 @@ export async function execute(message: Message) {
 }
 
 export async function executeSlash(interaction: ChatInputCommandInteraction) {
-  const { commandHandler } = await import('../../index.ts');
+  const { commandHandler } = await import('../../index');
   const client = interaction.client;
 
   // Get system info

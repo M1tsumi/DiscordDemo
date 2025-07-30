@@ -3,12 +3,17 @@ import {
   EmbedBuilder, 
   SlashCommandBuilder, 
   ChatInputCommandInteraction,
-  ActionRowBuilder,
+  PermissionFlagsBits,
   ButtonBuilder,
-  ButtonStyle
+  ButtonStyle,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
 } from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
-
+import { Command } from '../../types/Command';
 export const data = {
   name: 'wouldyourather',
   description: 'Get a thought-provoking "Would You Rather" question!',

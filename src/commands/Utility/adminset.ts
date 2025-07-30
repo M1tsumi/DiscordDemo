@@ -2,20 +2,18 @@ import {
   Message, 
   EmbedBuilder, 
   SlashCommandBuilder, 
-  ChatInputCommandInteraction, 
-  ActionRowBuilder, 
-  ButtonBuilder, 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
   ButtonStyle,
+  ActionRowBuilder,
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
-  ButtonInteraction,
-  StringSelectMenuInteraction,
-  Guild,
-  Role
+  TextChannel
 } from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
-import { AdminService } from '../../services/adminService';
-
+import { Command } from '../../types/Command';
 export const data = {
   name: 'adminset',
   description: 'Configure admin roles and command permissions (Server Owner Only).',

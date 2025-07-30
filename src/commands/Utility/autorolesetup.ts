@@ -1,15 +1,19 @@
-import {
-  Message,
-  EmbedBuilder,
-  SlashCommandBuilder,
+import { 
+  Message, 
+  EmbedBuilder, 
+  SlashCommandBuilder, 
   ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
+  ButtonStyle,
   ActionRowBuilder,
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
-  ButtonBuilder,
-  ButtonStyle
+  TextChannel
 } from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
+import { Command } from '../../types/Command';
 export const data = {
   name: 'autorolesetup',
   description: 'Advanced auto-role configuration wizard (Premium Feature)',

@@ -1,6 +1,20 @@
+import { 
+  Message, 
+  EmbedBuilder, 
+  SlashCommandBuilder, 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
+} from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
-
-
+import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
+import { Command } from '../../types/Command';
 export const data = {
   name: 'userinfo',
   description: 'Show information about a user.',

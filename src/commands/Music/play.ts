@@ -1,10 +1,19 @@
-import {
-  Message,
-  EmbedBuilder,
-  SlashCommandBuilder,
-  ChatInputCommandInteraction
+import { 
+  Message, 
+  EmbedBuilder, 
+  SlashCommandBuilder, 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
 } from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
+import { Command } from '../../types/Command';
 export const data = {
   name: 'play',
   description: 'Play music from YouTube (Premium Feature)',

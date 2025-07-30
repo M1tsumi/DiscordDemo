@@ -1,31 +1,71 @@
-# Fix import statements in TypeScript files
-$files = Get-ChildItem -Path "src" -Recurse -Filter "*.ts"
+# PowerShell script to add missing imports for Node.js modules and additional Discord.js types
 
-foreach ($file in $files) {
-    $content = Get-Content $file.FullName -Raw
+Write-Host "Adding missing imports..." -ForegroundColor Green
+
+# Function to add missing imports to a file
+function Add-MissingImports {
+    param([string]$FilePath)
     
-    # Fix import statements that reference .js files to .ts files
-    $content = $content -replace "from '\.\./\.\./types/Command\.js'", "from '../../types/Command.ts'"
-    $content = $content -replace "from '\.\./types/Command\.js'", "from '../types/Command.ts'"
-    $content = $content -replace "from '\./types/Command\.js'", "from './types/Command.ts'"
+    $content = Get-Content $FilePath -Raw
+    $originalContent = $content
     
-    # Fix service imports
-    $content = $content -replace "from '\.\./\.\./services/([^']+)\.js'", "from '../../services/`$1.ts'"
-    $content = $content -replace "from '\.\./services/([^']+)\.js'", "from '../services/`$1.ts'"
-    $content = $content -replace "from '\./services/([^']+)\.js'", "from './services/`$1.ts'"
+    # Check what imports are needed based on file content
+    $needsOS = $content -match "os\."
+    $needsFS = $content -match "fs\."
+    $needsPath = $content -match "path\."
+    $needsFileURLToPath = $content -match "fileURLToPath"
+    $needsAxios = $content -match "axios\."
+    $needsMessageFlags = $content -match "MessageFlags"
+    $needsUser = $content -match ": User"
+    $needsStringSelectMenuInteraction = $content -match "StringSelectMenuInteraction"
+    $needsEmbedField = $content -match "EmbedField"
+    $needsRPGService = $content -match "RPGService"
+    $needsCommand = $content -match ": Command"
     
-    # Fix utils imports
-    $content = $content -replace "from '\.\./\.\./utils/([^']+)\.js'", "from '../../utils/`$1.ts'"
-    $content = $content -replace "from '\.\./utils/([^']+)\.js'", "from '../utils/`$1.ts'"
-    $content = $content -replace "from '\./utils/([^']+)\.js'", "from './utils/`$1.ts'"
+    # Build additional imports
+    $additionalImports = @()
     
-    # Fix command imports in index.ts
-    $content = $content -replace "from '\./commands/([^']+)\.js'", "from './commands/`$1.ts'"
+    if ($needsOS -or $needsFS -or $needsPath -or $needsFileURLToPath) {
+        $additionalImports += "import os from 'os';"
+        $additionalImports += "import fs from 'fs';"
+        $additionalImports += "import path from 'path';"
+        $additionalImports += "import { fileURLToPath } from 'url';"
+    }
     
-    # Remove any corrupted import statements
-    $content = $content -replace "import '[^']*\.ts';", ""
+    if ($needsAxios) {
+        $additionalImports += "import axios from 'axios';"
+    }
     
-    Set-Content $file.FullName $content -NoNewline
+    if ($needsMessageFlags -or $needsUser -or $needsStringSelectMenuInteraction -or $needsEmbedField) {
+        $additionalImports += "import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';"
+    }
+    
+    if ($needsRPGService) {
+        $additionalImports += "import { RPGService } from '../../services/rpgService';"
+    }
+    
+    if ($needsCommand) {
+        $additionalImports += "import { Command } from '../../types/Command';"
+    }
+    
+    if ($additionalImports.Count -gt 0) {
+        # Add the additional imports after the existing imports
+        $importsToAdd = $additionalImports -join "`n"
+        $content = $content -replace "import \{ CommandCategory \} from '../../types/Command';", "import { CommandCategory } from '../../types/Command';`n`n$importsToAdd"
+        
+        # Write back if changed
+        if ($content -ne $originalContent) {
+            Set-Content $FilePath $content -NoNewline
+            Write-Host "Added missing imports to: $FilePath" -ForegroundColor Yellow
+        }
+    }
 }
 
-Write-Host "Import statements fixed in all TypeScript files!" 
+# Get all TypeScript command files
+$commandFiles = Get-ChildItem -Path "src/commands" -Recurse -Filter "*.ts"
+
+foreach ($file in $commandFiles) {
+    Add-MissingImports -FilePath $file.FullName
+}
+
+Write-Host "Missing imports added!" -ForegroundColor Green 

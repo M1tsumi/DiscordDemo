@@ -2,15 +2,19 @@ import {
   Message, 
   EmbedBuilder, 
   SlashCommandBuilder, 
-  ChatInputCommandInteraction, 
-  ActionRowBuilder, 
-  ButtonBuilder, 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
   ButtonStyle,
-  User,
-  MessageFlags
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
 } from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
-
+import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
+import { Command } from '../../types/Command';
 export const data = {
   name: 'tictactoe',
   description: 'Play tic-tac-toe against another player.',

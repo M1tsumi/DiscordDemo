@@ -2,14 +2,18 @@ import {
   Message, 
   EmbedBuilder, 
   SlashCommandBuilder, 
-  ChatInputCommandInteraction, 
-  ActionRowBuilder, 
-  ButtonBuilder, 
-  ButtonStyle, 
-  ComponentType 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
 } from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
-
+import { Command } from '../../types/Command';
 export const data = {
   name: 'poll',
   description: 'Create an interactive poll with up to 4 options.',

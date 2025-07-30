@@ -1,9 +1,24 @@
+import { 
+  Message, 
+  EmbedBuilder, 
+  SlashCommandBuilder, 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
+} from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
-
+import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
+import { Command } from '../../types/Command';
 // ES module equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

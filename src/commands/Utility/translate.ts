@@ -1,19 +1,25 @@
-// src/commands/translate.ts
 import { 
   Message, 
   EmbedBuilder, 
-  ActionRowBuilder, 
-  StringSelectMenuBuilder,
-  StringSelectMenuOptionBuilder,
-  StringSelectMenuInteraction,
+  SlashCommandBuilder, 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
   ButtonBuilder,
   ButtonStyle,
-  MessageFlags,
-  EmbedField
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
 } from 'discord.js';
+import { CommandCategory } from '../../types/Command';
+
+import os from 'os';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import axios from 'axios';
-
-
+import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
+import { Command } from '../../types/Command';
 const LANGUAGES = [
   { code: 'en', name: 'English', emoji: '🇬🇧', native: 'English' },
   { code: 'es', name: 'Spanish', emoji: '🇪🇸', native: 'Español' },

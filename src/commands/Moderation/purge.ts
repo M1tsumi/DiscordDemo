@@ -1,6 +1,19 @@
+import { 
+  Message, 
+  EmbedBuilder, 
+  SlashCommandBuilder, 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
+} from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
-
-
+import { Command } from '../../types/Command';
 export const data = {
   name: 'purge',
   description: 'Delete a number of messages from a channel.',

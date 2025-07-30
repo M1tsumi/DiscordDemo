@@ -1,7 +1,20 @@
-
+import { 
+  Message, 
+  EmbedBuilder, 
+  SlashCommandBuilder, 
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
+} from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
 import { RPGService } from '../../services/rpgService';
-
+import { Command } from '../../types/Command';
 export const data = {
   name: 'daily',
   description: 'Claim your daily rewards and bonuses.',

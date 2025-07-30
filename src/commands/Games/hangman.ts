@@ -3,13 +3,18 @@ import {
   EmbedBuilder, 
   SlashCommandBuilder, 
   ChatInputCommandInteraction,
-  ActionRowBuilder,
+  PermissionFlagsBits,
   ButtonBuilder,
   ButtonStyle,
-  MessageFlags
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  TextChannel
 } from 'discord.js';
+import { CommandCategory } from '../../types/Command';
 
-
+import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
+import { Command } from '../../types/Command';
 export const data = {
   name: 'hangman',
   description: 'Play a team-based game of Hangman with friends!',

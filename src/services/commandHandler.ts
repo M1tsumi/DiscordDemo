@@ -58,7 +58,7 @@ export class CommandHandler {
         if (stat.isDirectory()) {
           // Recursively load commands from subdirectories
           await this.loadCommandsRecursive(fullPath, baseDirname);
-        } else if (item.endsWith('.js') || item.endsWith('.ts')) {
+        } else if ((item.endsWith('.js') || item.endsWith('.ts')) && !item.endsWith('.d.ts')) {
           let relativePath: string = '';
           try {
             // Use the passed baseDirname instead of recalculating

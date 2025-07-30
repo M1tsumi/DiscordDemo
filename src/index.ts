@@ -166,10 +166,17 @@ client.on('interactionCreate', async (interaction) => {
       return;
     }
 
-    // Handle translate interactions
-    if (interaction.customId.startsWith('translate_')) {
-      const { handleTranslateInteraction } = await import('./commands/Utility/translate.js');
-      await handleTranslateInteraction(interaction);
+    // Handle translate copy interactions
+    if (interaction.customId.startsWith('copy_translation_')) {
+      const { handleCopyTranslation } = await import('./commands/Utility/translate.js');
+      await handleCopyTranslation(interaction);
+      return;
+    }
+
+    // Handle copy translation interactions
+    if (interaction.customId.startsWith('copy_translation_')) {
+      const { handleCopyTranslation } = await import('./commands/Utility/translate.js');
+      await handleCopyTranslation(interaction);
       return;
     }
 
@@ -223,6 +230,13 @@ client.on('interactionCreate', async (interaction) => {
     if (interaction.customId === 'train_stat_select') {
       const { handleTrainStatInteraction } = await import('./commands/RPG/train.js');
       await handleTrainStatInteraction(interaction);
+      return;
+    }
+
+    // Handle translate language selection
+    if (interaction.customId === 'translate_language_select') {
+      const { handleTranslateInteraction } = await import('./commands/Utility/translate.js');
+      await handleTranslateInteraction(interaction);
       return;
     }
 
