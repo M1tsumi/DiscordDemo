@@ -59,6 +59,10 @@ export class CommandHandler {
         } else if (item.endsWith('.js') || item.endsWith('.ts')) {
           let relativePath: string;
           try {
+            // Get __dirname for this context
+            const __filename = fileURLToPath(import.meta.url);
+            const __dirname = path.dirname(__filename);
+            
             // Use relative path import for better compatibility with ts-node
             relativePath = path.relative(path.resolve(__dirname, '../'), fullPath);
             const importPath = `../${relativePath.replace(/\\/g, '/')}`;
