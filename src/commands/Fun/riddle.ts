@@ -11,7 +11,7 @@ import {
   StringSelectMenuOptionBuilder,
   TextChannel
 } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+import { CommandCategory } from '../../types/Command.js';
 
 import { MessageFlags, User, StringSelectMenuInteraction, EmbedField } from 'discord.js';
 

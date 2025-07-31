@@ -11,7 +11,7 @@ import {
   StringSelectMenuOptionBuilder,
   TextChannel
 } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+import { CommandCategory } from '../../types/Command.js';
 
 export const data = {
   name: 'help',
@@ -34,7 +34,7 @@ export const slashData = new SlashCommandBuilder()
 export async function execute(message: Message, args?: string[]) {
   try {
     // Import here to avoid circular dependency issues
-    const { commandHandler, settingsService } = await import('../../index');
+    const { commandHandler, settingsService } = await import('../../index.js');
     
     const commandName = args?.[0]?.toLowerCase();
     const prefix = message.guild ? settingsService.getPrefix(message.guild.id) : '!';
@@ -196,7 +196,7 @@ export async function execute(message: Message, args?: string[]) {
 export async function executeSlash(interaction: ChatInputCommandInteraction) {
   try {
     // Import here to avoid circular dependency issues
-    const { commandHandler, settingsService } = await import('../../index');
+    const { commandHandler, settingsService } = await import('../../index.js');
     
     const commandName = interaction.options.getString('command')?.toLowerCase();
     const prefix = interaction.guild ? settingsService.getPrefix(interaction.guild.id) : '!';
@@ -352,7 +352,7 @@ export async function executeSlash(interaction: ChatInputCommandInteraction) {
 // Handle help category dropdown interaction
 export async function handleHelpCategoryInteraction(interaction: any) {
   try {
-    const { commandHandler, settingsService } = await import('../../index');
+    const { commandHandler, settingsService } = await import('../../index.js');
     const selectedCategory = interaction.values[0];
     const prefix = interaction.guild ? settingsService.getPrefix(interaction.guild.id) : '!';
     

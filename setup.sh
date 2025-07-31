@@ -37,7 +37,6 @@ if [ ! -f "package.json" ]; then
     echo -e "${RED}Please run this script from the bot's root directory.${NC}"
     exit 1
 fi
-
 # Check for Node.js
 echo -e "${BLUE}🔍 Checking Node.js installation...${NC}"
 if ! command -v node >/dev/null 2>&1; then

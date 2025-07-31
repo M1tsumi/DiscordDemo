@@ -11,9 +11,9 @@ import {
   StringSelectMenuOptionBuilder,
   TextChannel
 } from 'discord.js';
-import { CommandCategory } from '../../types/Command';
+import { CommandCategory } from '../../types/Command.js';
 
-import { RPGService } from '../../services/rpgService';
+import { RPGService } from '../../services/rpgService.js';
 
 export const data = {
   name: 'daily',

@@ -1,28 +1,44 @@
-# PowerShell script to fix Command interface imports
-# This removes the Command interface imports since interfaces don't exist in JavaScript
+# PowerShell script to fix import statements by adding .js extensions
+# This script will find all TypeScript files and update relative import statements
 
-Write-Host "Fixing Command interface imports..." -ForegroundColor Yellow
+Write-Host "Fixing import statements in TypeScript files..."
 
-# Get all TypeScript files in the commands directory
-$files = Get-ChildItem -Path "src/commands" -Recurse -Filter "*.ts"
+# Get all TypeScript files in the src directory
+$tsFiles = Get-ChildItem -Path "src" -Filter "*.ts" -Recurse
 
-$fixedCount = 0
+$totalFiles = 0
+$modifiedFiles = 0
 
-foreach ($file in $files) {
+foreach ($file in $tsFiles) {
+    $totalFiles++
     $content = Get-Content $file.FullName -Raw
     $originalContent = $content
     
-    # Remove the Command interface import line
-    $content = $content -replace "import \{ Command \} from '\.\./\.\./types/Command';`n", ""
-    $content = $content -replace "import \{ Command \} from '\.\./\.\./types/Command';", ""
+    # Fix specific import patterns with proper .js extensions
+    # Fix types/Command imports
+    $content = $content -replace "from ['`"]\.\./\.\./types/Command['`"]", "from '../../types/Command.js'"
+    $content = $content -replace "from ['`"]\.\./types/Command['`"]", "from '../types/Command.js'"
     
-    # If content changed, write it back
+    # Fix services imports
+    $content = $content -replace "from ['`"]\.\./\.\./services/([^'`"]*)['`"]", "from '../../services/$1.js'"
+    $content = $content -replace "from ['`"]\.\./services/([^'`"]*)['`"]", "from '../services/$1.js'"
+    
+    # Fix index imports
+    $content = $content -replace "from ['`"]\.\./\.\./index['`"]", "from '../../index.js'"
+    $content = $content -replace "from ['`"]\.\./index['`"]", "from '../index.js'"
+    
+    # Fix utils imports
+    $content = $content -replace "from ['`"]\.\./\.\./utils/([^'`"]*)['`"]", "from '../../utils/$1.js'"
+    $content = $content -replace "from ['`"]\.\./utils/([^'`"]*)['`"]", "from '../utils/$1.js'"
+    
+    # Fix any remaining relative imports that don't have .js extension
+    $content = $content -replace "from ['`"](\.[^'`"]*?)(?<!\.js)['`"]", "from '$1.js'"
+    
     if ($content -ne $originalContent) {
-        Set-Content -Path $file.FullName -Value $content
-        Write-Host "Fixed: $($file.Name)" -ForegroundColor Green
-        $fixedCount++
+        Set-Content -Path $file.FullName -Value $content -NoNewline
+        $modifiedFiles++
+        Write-Host "Fixed imports in: $($file.FullName)"
     }
 }
 
-Write-Host "Fixed $fixedCount files!" -ForegroundColor Green
-Write-Host "Now run: npm run build" -ForegroundColor Cyan 
+Write-Host "Completed! Modified $modifiedFiles out of $totalFiles files." 
