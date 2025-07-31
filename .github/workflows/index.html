@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Bot Launchers - Professional Setup Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 {
+            color: #764ba2;
+            font-size: 1.5rem;
+            margin: 20px 0 10px 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 5px;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Discord Bot Launchers</h1>
+            <p>Professional Setup Tools for Windows & Linux</p>
+            <p>Developed by quefep!</p>
+        </div>
+
+        <div class="card">
+            <h2>📋 Overview</h2>
+            <p>This Discord bot project includes professional launcher scripts for both Windows and Linux systems. These tools provide automated setup, dependency management, and troubleshooting capabilities to ensure your Discord bot runs smoothly on any platform.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🪟 Windows Support</h3>
+                    <p>Professional batch files with automated setup and troubleshooting</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🐧 Linux Support</h3>
+                    <p>Bash scripts with comprehensive diagnostics and setup automation</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔧 Auto-Configuration</h3>
+                    <p>Automatic dependency installation and environment setup</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛠️ Troubleshooting</h3>
+                    <p>Built-in diagnostic tools for common issues</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🪟 Windows Launchers</h2>
+            
+            <h3>start-bot-manager.bat</h3>
+            <p>The main Windows launcher that provides a complete setup experience:</p>
+            <ul>
+                <li><strong>Professional Interface:</strong> Color-coded console with clear instructions</li>
+                <li><strong>Dependency Management:</strong> Automatic npm install and build process</li>
+                <li><strong>Environment Setup:</strong> Creates .env file from template</li>
+                <li><strong>Configuration Validation:</strong> Checks Discord token setup</li>
+                <li><strong>Data Directory Setup:</strong> Creates necessary folders</li>
+                <li><strong>Build Process:</strong> Compiles TypeScript to JavaScript</li>
+                <li><strong>Intents Configuration:</strong> Detailed Discord intents setup guide</li>
+            </ul>
+
+            <div class="warning">
+                <strong>⚠️ Critical Setup Required:</strong> You must enable Discord bot intents in the Discord Developer Portal for the bot to function properly.
+            </div>
+
+            <h3>troubleshoot.bat</h3>
+            <p>Comprehensive diagnostic tool for Windows systems:</p>
+            <ul>
+                <li><strong>System Diagnostics:</strong> Windows version, memory, and disk space</li>
+                <li><strong>Node.js Verification:</strong> Checks installation and version compatibility</li>
+                <li><strong>Project Structure:</strong> Validates file organization</li>
+                <li><strong>Network Testing:</strong> Internet connectivity and Discord server access</li>
+                <li><strong>Permission Checks:</strong> File access and execution permissions</li>
+                <li><strong>Common Solutions:</strong> Provides fixes for typical issues</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🐧 Linux Launchers</h2>
+            
+            <h3>start-linux.sh</h3>
+            <p>Advanced Linux launcher with enhanced features:</p>
+            <ul>
+                <li><strong>Color-coded Interface:</strong> Beautiful terminal output with emojis</li>
+                <li><strong>System Requirements:</strong> Checks Node.js version and dependencies</li>
+                <li><strong>File Permissions:</strong> Sets proper executable permissions</li>
+                <li><strong>TypeScript Compilation:</strong> Builds and validates compiled files</li>
+                <li><strong>Command Loading Test:</strong> Verifies bot functionality</li>
+                <li><strong>Comprehensive Setup:</strong> Complete environment configuration</li>
+            </ul>
+
+            <div class="code-block">
+# Make executable and run
+chmod +x start-linux.sh
+./start-linux.sh
+            </div>
+
+            <h3>troubleshoot.sh</h3>
+            <p>Advanced diagnostic tool for Linux systems:</p>
+            <ul>
+                <li><strong>OS Detection:</strong> Identifies Linux distribution and version</li>
+                <li><strong>System Resources:</strong> Memory, disk space, and architecture</li>
+                <li><strong>Dependency Verification:</strong> Node.js, npm, and build tools</li>
+                <li><strong>File System Checks:</strong> Permissions and directory structure</li>
+                <li><strong>Network Diagnostics:</strong> Internet and Discord connectivity</li>
+                <li><strong>Compilation Testing:</strong> TypeScript build verification</li>
+            </ul>
+
+            <div class="code-block">
+# Run diagnostics
+chmod +x troubleshoot.sh
+./troubleshoot.sh
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔧 Setup Instructions</h2>
+            
+            <h3>Windows Setup</h3>
+            <ol>
+                <li>Download and extract the Discord bot files</li>
+                <li>Double-click <code>start-bot-manager.bat</code></li>
+                <li>Follow the automated setup process</li>
+                <li>Edit the <code>.env</code> file with your Discord bot token</li>
+                <li>Enable required Discord intents in Developer Portal</li>
+                <li>Run <code>npm start</code> to launch the bot</li>
+            </ol>
+
+            <h3>Linux Setup</h3>
+            <ol>
+                <li>Download and extract the Discord bot files</li>
+                <li>Open terminal in the bot directory</li>
+                <li>Make scripts executable: <code>chmod +x *.sh</code></li>
+                <li>Run setup: <code>./start-linux.sh</code></li>
+                <li>Edit <code>.env</code> with your Discord bot token</li>
+                <li>Enable required Discord intents in Developer Portal</li>
+                <li>Launch with <code>npm start</code></li>
+            </ol>
+
+            <div class="success">
+                <strong>✅ Pro Tip:</strong> For voice features on Linux, install FFmpeg: <code>sudo apt install ffmpeg</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ Troubleshooting</h2>
+            
+            <h3>Common Issues & Solutions</h3>
+            
+            <h4>❌ "Disallowed Intents" Error</h4>
+            <p><strong>Solution:</strong> Enable all three Privileged Gateway Intents in Discord Developer Portal:</p>
+            <ul>
+                <li>✅ PRESENCE INTENT</li>
+                <li>✅ SERVER MEMBERS INTENT</li>
+                <li>✅ MESSAGE CONTENT INTENT</li>
+            </ul>
+
+            <h4>❌ "Invalid Token" Error</h4>
+            <p><strong>Solution:</strong> Check your <code>.env</code> file has the correct Discord bot token</p>
+
+            <h4>❌ "Permission denied" Error (Linux)</h4>
+            <p><strong>Solution:</strong> Run <code>chmod +x *.sh</code> to set executable permissions</p>
+
+            <h4>❌ "Cannot find module" Error</h4>
+            <p><strong>Solution:</strong> Run <code>npm install</code> then <code>npm run build</code></p>
+
+            <h4>❌ Voice features not working</h4>
+            <p><strong>Solution:</strong> Install FFmpeg: <code>sudo apt install ffmpeg</code></p>
+
+            <div class="warning">
+                <strong>💡 Need Help?</strong> Join our Discord community for support: <a href="https://discord.gg/a3tGyAwVRc" class="btn">Join Discord</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📊 Features Comparison</h2>
+            
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background: #667eea; color: white;">
+                    <th style="padding: 12px; text-align: left;">Feature</th>
+                    <th style="padding: 12px; text-align: center;">Windows (.bat)</th>
+                    <th style="padding: 12px; text-align: center;">Linux (.sh)</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px;">Professional Interface</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px;">Color-coded Output</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px;">Dependency Management</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px;">Environment Setup</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px;">Build Process</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px;">Troubleshooting Tools</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px;">Permission Management</td>
+                    <td style="padding: 12px; text-align: center;">❌</td>
+                    <td style="padding: 12px; text-align: center;">✅</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px;">System Diagnostics</td>
+                    <td style="padding: 12px; text-align: center;">Basic</td>
+                    <td style="padding: 12px; text-align: center;">Advanced</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>🎯 Quick Start Commands</h2>
+            
+            <h3>Windows Commands</h3>
+            <div class="code-block">
+# Main launcher
+start-bot-manager.bat
+
+# Troubleshooting
+troubleshoot.bat
+
+# Manual setup
+npm install
+npm run build
+npm start
+            </div>
+
+            <h3>Linux Commands</h3>
+            <div class="code-block">
+# Make executable
+chmod +x *.sh
+
+# Main launcher
+./start-linux.sh
+
+# Troubleshooting
+./troubleshoot.sh
+
+# Manual setup
+npm install
+npm run build
+npm start
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>💬 Need Help?</h3>
+            <p>Join our Discord community for support and updates!</p>
+            <div class="social-links">
+                <a href="https://discord.gg/a3tGyAwVRc" class="btn">Join Discord Community</a>
+            </div>
+            <p style="margin-top: 20px; opacity: 0.8;">Developed by quefep! 🚀</p>
+        </div>
+    </div>
+</body>
+</html> 
